@@ -346,3 +346,38 @@ VALUES('1', 2, 'Rata', 'Raton', 'Ramirez', 2, 'asadas');
 
 SELECT COUNT(curp) AS 'NO. EMPLEADOS' FROM usuarios;
 
+
+
+
+ALTER TABLE peticiones
+ADD COLUMN fecha_incidencia DATE NULL,
+ADD COLUMN descripcion_incidencia TEXT NULL,
+ADD COLUMN horas_faltantes INT NULL;
+
+
+
+UPDATE peticiones
+SET fecha_incidencia = '2025-01-01', -- Fecha válida por defecto
+    descripcion_incidencia = 'Incidencia pendiente de descripción',
+    horas_faltantes = 0
+WHERE fecha_incidencia IS NULL;
+
+
+
+ALTER TABLE peticiones
+MODIFY COLUMN fecha_incidencia DATE NOT NULL,
+MODIFY COLUMN descripcion_incidencia TEXT NOT NULL,
+MODIFY COLUMN horas_faltantes INT NOT NULL;
+
+
+
+
+CREATE TABLE horarios_reposicion (
+    id_horario INT PRIMARY KEY AUTO_INCREMENT,  -- Identificador único del horario
+    id_peticion INT NOT NULL,                   -- Relación con la petición
+    dia DATE NOT NULL,                          -- Fecha propuesta
+    hora_inicio TIME NOT NULL,                  -- Hora de inicio
+    hora_fin TIME NOT NULL,                     -- Hora de fin
+    horas_cubiertas INT NOT NULL,               -- Horas cubiertas en ese horario
+    FOREIGN KEY (id_peticion) REFERENCES peticiones(id_peticion) ON UPDATE CASCADE ON DELETE CASCADE
+);
