@@ -36,7 +36,8 @@ $query_solicitudes = "SELECT p.*, u.nombre, u.primer_ap, u.segundo_ap
                       FROM peticiones p
                       JOIN usuarios u ON p.curp_peticion = u.curp
                       JOIN docentes d ON u.curp = d.curp_docente
-                      WHERE d.id_academia = ? AND p.id_etapa = 1"; // Filtra solo las solicitudes en etapa "Enviado para revisión"
+                      WHERE d.id_academia = ? "; // WHERE d.id_academia = ? AND p.id_etapa = 1"; 
+
 $stmt_solicitudes = $conn->prepare($query_solicitudes);
 $stmt_solicitudes->bind_param("s", $id_academia);
 $stmt_solicitudes->execute();
