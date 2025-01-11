@@ -42,8 +42,8 @@ if ($stmt->execute()) {
     $id_peticion = $stmt->insert_id; // Recuperar el ID de la petición creada
     
     // Generar el link del PDF
-    $base_url = "https://example.com/pdfs/"; // URL base donde estarán los PDFs
-    $link_pdf = $base_url . "peticion_" . $id_peticion . ".pdf";
+    $base_url = "http://localhost/web-backend/api/incidents/paytime/pdf/PDF_PayTime.php"; // URL base donde estarán los PDFs
+    $link_pdf = $base_url . "?id_peticion=" . $id_peticion;
 
     // Actualizar el link del PDF en la base de datos
     $update_query = "UPDATE peticiones SET link_pdf = ? WHERE id_peticion = ?";

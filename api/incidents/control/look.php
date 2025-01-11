@@ -8,9 +8,9 @@ header('Access-Control-Allow-Headers: Content-Type');
 include_once '../../../api/tools/connect.php';
 
 // Verificar si el usuario tiene sesión y es jefe de academia
-if (empty($_SESSION['user_id']) || $_SESSION['rol'] != 3) {
+if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [3, 2, 1])) { // Jefe de academia (3) o Capital Humano (2) o Administrador (1)
     // Responder con error, mostrar el rol actual del usuario
-    echo json_encode(['status' => 'error', 'message' => 'No tiene permisos para realizar esta acción', 'rol' => $_SESSION['rol']]);
+    echo json_encode(['status' => 'error', 'message' => 'No tiene permisos para realizar esta acción']);
     exit;
 }
 

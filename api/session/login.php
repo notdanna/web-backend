@@ -29,25 +29,30 @@ $result = $conn->query($query);
 if ($result && $result->num_rows > 0) {
     $userData = $result->fetch_assoc();
 
-    // Validar contraseña cifrada
-    if (password_verify($contrasena, $userData['contrasena'])) {
-        // Crear la sesión
-        $_SESSION['user_id'] = $userData['curp'];
-        $_SESSION['nombre'] = $userData['nombre'] . ' ' . $userData['primer_ap'] . ' ' . $userData['segundo_ap'];
-        $_SESSION['rol'] = $userData['id_rol'];
+    // Verificar si el usuario tiene una contraseña establecidas
+    if (!empty($userData['contrasena'])) {
+        // Validar contraseña cifrada
+        if (password_verify($contrasena, $userData['contrasena'])) {
+            // Crear la sesión
+            $_SESSION['user_id'] = $userData['curp'];
+            $_SESSION['nombre'] = $userData['nombre'] . ' ' . $userData['primer_ap'] . ' ' . $userData['segundo_ap'];
+            $_SESSION['rol'] = $userData['id_rol'];
 
-        // Responder con éxito
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Login exitoso',
-            'user' => [
-                'curp' => $userData['curp'],
-                'nombre' => $_SESSION['nombre'],
-                'rol' => $userData['id_rol']
-            ]
-        ]);
+            // Responder con éxito
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Login exitoso',
+                'user' => [
+                    'curp' => $userData['curp'],
+                    'nombre' => $_SESSION['nombre'],
+                    'rol' => $userData['id_rol']
+                ]
+            ]);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta']);
+        }
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Contraseña incorrecta']);
+        echo json_encode(['status' => 'error', 'message' => 'El usuario no tiene una cuenta activa']);
     }
 } else {
     echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
