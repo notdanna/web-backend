@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSchool } from "@fortawesome/free-solid-svg-icons";
+import { faSchool, faFile, faLock } from "@fortawesome/free-solid-svg-icons";
 
 const Inicio = () => {
   return (
@@ -84,34 +84,24 @@ const Inicio = () => {
         <h2 className="text-center mb-5">Características principales</h2>
         <div className="row text-center">
           <div className="col-md-4">
-            <FontAwesomeIcon
-              icon={faSchool}
-              size="3x"
-              className="mb-3 text-primary"
-            />
+            <FontAwesomeIcon icon={faSchool} size="10x" className="mb-3 " />
             <h3>Gestión académica</h3>
             <p>
               Organiza horarios, asignaturas y calificaciones en un solo lugar.
             </p>
           </div>
           <div className="col-md-4">
-            <img
-              src="/img/icon2.png" // Reemplaza con la ruta de tus imágenes
-              alt="Comunicación eficiente"
-              style={{ width: "100px" }}
-            />
-            <h3>Comunicación eficiente</h3>
+            <FontAwesomeIcon icon={faLock} size="10x" className="mb-3 " />
+
+            <h3>Seguridad</h3>
             <p>
-              Conecta a estudiantes, padres y profesores con notificaciones en
-              tiempo real.
+              Manten seguros tus datos en todo momento y se parte del esquema
+              OneCorse.
             </p>
           </div>
           <div className="col-md-4">
-            <img
-              src="/img/icon3.png" // Reemplaza con la ruta de tus imágenes
-              alt="Análisis y reportes"
-              style={{ width: "100px" }}
-            />
+            <FontAwesomeIcon icon={faFile} size="10x" className="mb-3 " />
+
             <h3>Análisis y reportes</h3>
             <p>Obtén reportes detallados para tomar decisiones informadas.</p>
           </div>
