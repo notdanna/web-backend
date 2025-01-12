@@ -6,8 +6,9 @@ import {
   Route,
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Login from "./pages/Login";
-import Inicio from "./pages/Inicio";
+import Login from "./pages/Login"; // Asegúrate de que esta ruta sea correcta
+import Inicio from "./pages/Inicio"; // Asegúrate de que esta ruta sea correcta
+import Registro from "./pages/Registro"; // Asegúrate de que esta ruta sea correcta
 import "./App.css";
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
           <div className="container">
             <NavLink className="navbar-brand" to="/">
               <img
-                src="/img/logo.png"
+                src="/img/logo.png" // Asegúrate de que esta imagen esté en "public/img"
                 alt="Salud Digna Logo"
                 style={{ height: "40px" }}
               />
@@ -49,7 +50,7 @@ const App = () => {
                 </li>
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/ubica">
-                    Ubica tu clínica
+                    Oficinas
                   </NavLink>
                 </li>
               </ul>
@@ -57,9 +58,9 @@ const App = () => {
             <div>
               <NavLink
                 className="btn btn-outline-secondary me-2"
-                to="/registrate"
+                to="/registro"
               >
-                Regístrate
+                Registrate
               </NavLink>
               <NavLink className="btn btn-secondary" to="/login">
                 Iniciar
@@ -72,7 +73,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Inicio />} />
           <Route path="/login" element={<Login />} />
-          {/* Aquí puedes agregar otras rutas si las necesitas */}
+          <Route path="/registro" element={<Registro />} />
         </Routes>
       </div>
     </Router>

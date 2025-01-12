@@ -6,12 +6,8 @@ const Inicio = () => {
       {/* Contenido principal */}
       <header className="bg-light text-dark py-5">
         <div className="container text-center">
-          <h1 className="display-4">
-            Contribuimos a tu diagnóstico con imágenes de alta resolución
-          </h1>
-          <p className="lead">
-            Resonancia Magnética desde <strong>$2,800</strong> IVA incluido
-          </p>
+          <h1 className="display-4">Sistema de Administracion para Escuelas</h1>
+          <p className="lead">Confianza y Seguridad</p>
         </div>
       </header>
       {/* Secciones adicionales */}
