@@ -46,6 +46,23 @@ CREATE TABLE docentes (
 );
 
 
+CREATE TABLE horarios_reposicion (
+    id_horario INT PRIMARY KEY AUTO_INCREMENT,  -- Identificador único del horario
+    id_peticion INT NOT NULL,                   -- Relación con la petición
+    dia DATE NOT NULL,                          -- Fecha propuesta
+    hora_inicio TIME NOT NULL,                  -- Hora de inicio
+    hora_fin TIME NOT NULL,                     -- Hora de fin
+    horas_cubiertas INT NOT NULL,               -- Horas cubiertas en ese horario
+    FOREIGN KEY (id_peticion) REFERENCES peticiones(id_peticion) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+
+
+
+
+
 -- AGREGAMOS ALGUNAS COLUMNAS:
 ALTER TABLE usuarios ADD COLUMN link_pdf VARCHAR(255) DEFAULT NULL;
 ALTER TABLE docentes ADD COLUMN permisos_anuales INT DEFAULT 10; 
@@ -369,15 +386,3 @@ MODIFY COLUMN fecha_incidencia DATE NOT NULL,
 MODIFY COLUMN descripcion_incidencia TEXT NOT NULL,
 MODIFY COLUMN horas_faltantes INT NOT NULL;
 
-
-
-
-CREATE TABLE horarios_reposicion (
-    id_horario INT PRIMARY KEY AUTO_INCREMENT,  -- Identificador único del horario
-    id_peticion INT NOT NULL,                   -- Relación con la petición
-    dia DATE NOT NULL,                          -- Fecha propuesta
-    hora_inicio TIME NOT NULL,                  -- Hora de inicio
-    hora_fin TIME NOT NULL,                     -- Hora de fin
-    horas_cubiertas INT NOT NULL,               -- Horas cubiertas en ese horario
-    FOREIGN KEY (id_peticion) REFERENCES peticiones(id_peticion) ON UPDATE CASCADE ON DELETE CASCADE
-);
