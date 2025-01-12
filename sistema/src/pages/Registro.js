@@ -9,13 +9,6 @@ import "../css/registro.css";
 const Registro = () => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("../");
-    }
-  }, [navigate]);
-
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const email = params.get("email") || "";
@@ -114,14 +107,14 @@ const Registro = () => {
           className: "btn btn-dark",
         },
       }).then(() => {
-        navigate("../");
+        navigate("../"); // Redirige al usuario tras el éxito
       });
     }
   };
 
   return (
     <div className="container mt-5 mb-4">
-      <h2 className="text-center">Vamos a hacerte un Xclusive member.</h2>
+      <h2 className="text-center">Vamos a hacerte un miembro de OneCorse.</h2>
       <br />
       <Form id="registroForm" onSubmit={handleSubmit}>
         <Row className="mb-3">
