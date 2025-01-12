@@ -19,13 +19,8 @@ const Registro = () => {
     email: email,
     contrasena: "",
     preferencia: "",
-    nacimiento: "",
-    codigoPostal: "",
-    estado: "",
-    municipio: "",
-    colonia: "",
-    calle: "",
-    numero: "",
+    curp: "",
+
     terminos: false,
   });
 
@@ -47,7 +42,7 @@ const Registro = () => {
       errors.push("El apellido debe tener al menos 2 caracteres.");
     }
     if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.push("Debe ingresar un correo electrónico válido.");
+      errors.push("Debe ingresar un Curp.");
     }
     if (!formData.contrasena || formData.contrasena.length < 8) {
       errors.push("La contraseña debe tener al menos 8 caracteres.");
@@ -130,28 +125,29 @@ const Registro = () => {
             />
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Label>Apellidos*</Form.Label>
+            <Form.Label>Apellido Paterno</Form.Label>
             <Form.Control
               type="text"
               id="apellido"
               name="apellido"
               value={formData.apellido}
               onChange={handleChange}
-              placeholder="Apellidos"
+              placeholder="Apellido Paterno"
             />
           </Form.Group>
         </Row>
         <Form.Group className="mb-3">
-          <Form.Label>Correo*</Form.Label>
+          <Form.Label>Curp</Form.Label>
           <Form.Control
-            id="email"
-            type="email"
-            name="email"
+            id="curp"
+            type="curp"
+            name="curp"
             value={formData.email}
             onChange={handleChange}
-            placeholder="Correo"
+            placeholder="Curp"
           />
         </Form.Group>
+
         <Form.Group className="mb-3">
           <Form.Label>Contraseña*</Form.Label>
           <Form.Control
@@ -171,12 +167,10 @@ const Registro = () => {
         </Form.Group>
         <Form.Group className="mb-3"></Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Fecha de nacimiento*</Form.Label>
+          <Form.Label>Numero de Empleado</Form.Label>
           <Form.Control
-            type="date"
-            id="nacimiento"
-            name="nacimiento"
-            value={formData.nacimiento}
+            id="numeroEmpleado"
+            name="numeroEmpleado"
             onChange={handleChange}
           />
         </Form.Group>

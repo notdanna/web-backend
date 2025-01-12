@@ -9,6 +9,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Login from "./pages/Login";
 import Inicio from "./pages/Inicio";
 import Registro from "./pages/Registro";
+import Conocenos from "./pages/Conocenos";
+import Oficinas from "./pages/Oficinas";
+import InicioDocente from "./pages/docente/InicioDocente";
+import OpcionesDocentes from "./pages/docente/OpcionesDocentes";
+import CorrimientoHorario from "./pages/docente/CorrimientoHorario";
+import DiaEconomico from "./pages/docente/DiaEconomico";
+import TiempoPago from "./pages/docente/TiempoPago";
 import "./App.css";
 
 const Navbar = () => {
@@ -42,17 +49,17 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/ubica">
+              <NavLink className="nav-link" to="/oficinas">
                 Oficinas
               </NavLink>
             </li>
           </ul>
         </div>
         <div>
-          <NavLink className="btn btn-outline-secondary me-2" to="/registro">
+          <NavLink className="btn btn-outline-dark me-2" to="/registro">
             Registrate
           </NavLink>
-          <NavLink className="btn btn-secondary" to="/login">
+          <NavLink className="btn btn-dark" to="/login">
             Iniciar
           </NavLink>
         </div>
@@ -73,6 +80,13 @@ const App = () => {
           <Route path="/" element={<Inicio />} />
           <Route path="/login" element={<Login />} />
           <Route path="/registro" element={<Registro />} />
+          <Route path="/conocenos" element={<Conocenos />} />
+          <Route path="/oficinas" element={<Oficinas />} />
+          <Route path="/inicio-docente" element={<InicioDocente />} />
+          <Route path="/opciones-docentes" element={<OpcionesDocentes />} />
+          <Route path="/corrimiento-horario" element={<CorrimientoHorario />} />
+          <Route path="/dia-economico" element={<DiaEconomico />} />{" "}
+          <Route path="/tiempoPago" element={<TiempoPago />} />{" "}
         </Routes>
       </div>
     </Router>

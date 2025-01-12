@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/login.css";
@@ -7,18 +7,25 @@ import Swal from "sweetalert2";
 const Login = ({ isDarkMode }) => {
   const navigate = useNavigate();
   const formRef = useRef(null);
-  const [showPasswordInput, setShowPasswordInput] = useState(false);
-
-  const handleNavLinkClick = (url) => {
-    window.location.href = url;
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
-    const email = formData.get("email");
+    const curp = formData.get("curp");
+    const password = formData.get("password");
+    const termsAccepted = formData.get("terms");
 
-    if (!formData.get("terms")) {
+    if (!curp || !password) {
+      Swal.fire({
+        icon: "error",
+        title: "Campos incompletos",
+        text: "Por favor, complete ambos campos para continuar.",
+        confirmButtonColor: "#000",
+      });
+      return;
+    }
+
+    if (!termsAccepted) {
       Swal.fire({
         icon: "error",
         title: "Algo anda mal",
@@ -28,29 +35,13 @@ const Login = ({ isDarkMode }) => {
       return;
     }
 
-    if (showPasswordInput) {
-      const password = formData.get("password");
-      if (email === "test@example.com" && password === "1234") {
-        Swal.fire({
-          icon: "success",
-          title: "Inicio de sesión exitoso",
-          confirmButtonColor: "#000",
-        });
-        navigate("../");
-      } else {
-        Swal.fire({
-          text: "Contraseña incorrecta",
-          icon: "error",
-          confirmButtonColor: "#000",
-        });
-      }
-    } else {
-      if (email === "test@example.com") {
-        setShowPasswordInput(true);
-      } else {
-        navigate("/registro?email=" + email);
-      }
-    }
+    Swal.fire({
+      icon: "success",
+      title: "Inicio de sesión exitoso",
+      confirmButtonColor: "#000",
+    }).then(() => {
+      navigate("/inicio-docente"); // Redirige al componente InicioDocente
+    });
   };
 
   return (
@@ -61,7 +52,7 @@ const Login = ({ isDarkMode }) => {
     >
       <img src="./img/logo.png" alt="OneCorse" className="logo-2 " />
       <h2 className={`text-center mb-5 ${isDarkMode ? "dark-mode" : ""}`}>
-        Introduce tu CURP para iniciar sesión
+        Introduce tu CURP y contraseña para iniciar sesión
       </h2>
       <form
         ref={formRef}
@@ -70,15 +61,16 @@ const Login = ({ isDarkMode }) => {
         onSubmit={handleSubmit}
       >
         <div className="form-group mb-3">
-          <label htmlFor="email" className="sr-only">
-            Correo electrónico
+          <label htmlFor="curp" className="sr-only">
+            CURP
           </label>
           <input
-            type="email"
-            name="email"
+            autoComplete="off"
+            type="text"
+            name="curp"
             className="form-control"
-            id="email"
-            placeholder="Correo electrónico"
+            id="curp"
+            placeholder="CURP"
             required
           />
         </div>
@@ -87,6 +79,7 @@ const Login = ({ isDarkMode }) => {
             Contraseña
           </label>
           <input
+            autoComplete="off"
             type="password"
             name="password"
             className="form-control"
@@ -95,7 +88,6 @@ const Login = ({ isDarkMode }) => {
             required
           />
         </div>
-
         <div className="form-group form-check mb-3">
           <input
             type="checkbox"
@@ -110,7 +102,6 @@ const Login = ({ isDarkMode }) => {
             Al continuar, acepto la{" "}
             <a
               href="#"
-              onClick={() => handleNavLinkClick("/privacidad")}
               className={`text-decoration-none ${
                 isDarkMode ? "dark-mode" : ""
               }`}
@@ -120,7 +111,6 @@ const Login = ({ isDarkMode }) => {
             y los{" "}
             <a
               href="#"
-              onClick={() => handleNavLinkClick("/letra-chica")}
               className={`text-decoration-none ${
                 isDarkMode ? "dark-mode" : ""
               }`}
