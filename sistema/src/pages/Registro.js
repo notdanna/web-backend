@@ -169,20 +169,7 @@ const Registro = () => {
             </ul>
           </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3">
-          <Form.Label>Preferencia de compra*</Form.Label>
-          <Form.Select
-            id="preferencia"
-            name="preferencia"
-            value={formData.preferencia}
-            onChange={handleChange}
-          >
-            <option value="">Elige una opción</option>
-            <option value="Ropa">Ropa</option>
-            <option value="Calzado">Calzado</option>
-            <option value="Accesorios">Accesorios</option>
-          </Form.Select>
-        </Form.Group>
+        <Form.Group className="mb-3"></Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Fecha de nacimiento*</Form.Label>
           <Form.Control
@@ -200,7 +187,7 @@ const Registro = () => {
             id="terminos"
             checked={formData.terminos}
             onChange={handleChange}
-            label="Acepto la Política de privacidad y los Términos de uso de Xclusive Store."
+            label="Acepto Recibir correos y Alertas de OneCorse."
           />
         </Form.Group>
         <Button variant="dark" type="submit" className="w-100">
