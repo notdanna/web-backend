@@ -15,7 +15,8 @@ echo json_encode([
     'message' => 'Sesión activa',
     'user' => [
         'id' => $_SESSION['user_id'],
-        'nombre' => $_SESSION['nombre']
+        'nombre' => $_SESSION['nombre'],
+        'rol' => $_SESSION['rol']
     ]
 ]);
 

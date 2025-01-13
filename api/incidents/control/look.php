@@ -8,8 +8,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 include_once '../../../api/tools/connect.php';
 
 // Verificar si el usuario tiene sesión y es jefe de academia
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [3, 2, 1])) { // Jefe de academia (3) o Capital Humano (2) o Administrador (1)
-    // Responder con error, mostrar el rol actual del usuario
+if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [3, 2, 1])) { // Jefe de academia (3), Capital Humano (2) o Administrador (1)
     echo json_encode(['status' => 'error', 'message' => 'No tiene permisos para realizar esta acción']);
     exit;
 }
@@ -32,11 +31,15 @@ $data_academia = $result_academia->fetch_assoc();
 $id_academia = $data_academia['id_academia'];
 
 // Consultar las solicitudes de los docentes de la academia
-$query_solicitudes = "SELECT p.*, u.nombre, u.primer_ap, u.segundo_ap
+$query_solicitudes = "SELECT p.*, 
+                             u.nombre, 
+                             u.primer_ap, 
+                             u.segundo_ap, 
+                             u.numero_empleado
                       FROM peticiones p
                       JOIN usuarios u ON p.curp_peticion = u.curp
                       JOIN docentes d ON u.curp = d.curp_docente
-                      WHERE d.id_academia = ? "; // WHERE d.id_academia = ? AND p.id_etapa = 1"; 
+                      WHERE d.id_academia = ?";
 
 $stmt_solicitudes = $conn->prepare($query_solicitudes);
 $stmt_solicitudes->bind_param("s", $id_academia);

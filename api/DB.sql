@@ -304,7 +304,7 @@ VALUES ('Enviado para revisión.'),
 INSERT INTO tramite(nombre_tramite)
 VALUES ('Pago de tiempo adicional'),
        ('Día económico'),
-       ('Permiso especial');
+       ('corrimiento');
 
 -- CREAMOS UNA TABLA PARA LAS PETICIONES
 CREATE TABLE peticiones (
@@ -350,25 +350,7 @@ SELECT COUNT(curp) AS 'NO. EMPLEADOS' FROM usuarios;
 
 
 
-ALTER TABLE peticiones
-ADD COLUMN fecha_incidencia DATE NULL,
-ADD COLUMN descripcion_incidencia TEXT NULL,
-ADD COLUMN horas_faltantes INT NULL;
-
-
-
-UPDATE peticiones
-SET fecha_incidencia = '2025-01-01', -- Fecha válida por defecto
-    descripcion_incidencia = 'Incidencia pendiente de descripción',
-    horas_faltantes = 0
-WHERE fecha_incidencia IS NULL;
-
-
-
-ALTER TABLE peticiones
-MODIFY COLUMN fecha_incidencia DATE NOT NULL,
-MODIFY COLUMN descripcion_incidencia TEXT NOT NULL,
-MODIFY COLUMN horas_faltantes INT NOT NULL;
+1
 
 
 CREATE TABLE horarios_reposicion (

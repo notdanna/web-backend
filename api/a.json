@@ -1,0 +1,533 @@
+{
+    "status": "success",
+    "data": [
+        {
+            "curp": "1",
+            "numero_empleado": "2",
+            "nombre": "Rata",
+            "primer_ap": "Raton",
+            "segundo_ap": "Ramirez",
+            "id_rol": "2"
+        },
+        {
+            "curp": "ADMINISTRADOR1",
+            "numero_empleado": "1000",
+            "nombre": "Administrador",
+            "primer_ap": " ",
+            "segundo_ap": " ",
+            "id_rol": "1"
+        },
+        {
+            "curp": "ADMINISTRADOR2",
+            "numero_empleado": "1001",
+            "nombre": "Equipo",
+            "primer_ap": " ",
+            "segundo_ap": " ",
+            "id_rol": "1"
+        },
+        {
+            "curp": "AXO444791RQSMWPCT",
+            "numero_empleado": "2366",
+            "nombre": "Whoopi",
+            "primer_ap": "Bonner",
+            "segundo_ap": "Burris",
+            "id_rol": "4"
+        },
+        {
+            "curp": "BAK556451SDNQTTFS",
+            "numero_empleado": "2716",
+            "nombre": "Damon",
+            "primer_ap": "Sheppard",
+            "segundo_ap": "Wall",
+            "id_rol": "4"
+        },
+        {
+            "curp": "BCX917412LNUHPVSJ",
+            "numero_empleado": "2720",
+            "nombre": "Leigh",
+            "primer_ap": "Knapp",
+            "segundo_ap": "Atkinson",
+            "id_rol": "4"
+        },
+        {
+            "curp": "BII333626KHVFLIME",
+            "numero_empleado": "2975",
+            "nombre": "Michael",
+            "primer_ap": "Crosby",
+            "segundo_ap": "Lara",
+            "id_rol": "4"
+        },
+        {
+            "curp": "BKJ310134ALTPFHLG",
+            "numero_empleado": "2874",
+            "nombre": "Minerva",
+            "primer_ap": "Murray",
+            "segundo_ap": "Hunter",
+            "id_rol": "4"
+        },
+        {
+            "curp": "BNV906543HFTVONOS",
+            "numero_empleado": "2528",
+            "nombre": "Cooper",
+            "primer_ap": "Clay",
+            "segundo_ap": "Montgomery",
+            "id_rol": "4"
+        },
+        {
+            "curp": "CFV327284XDVXYTIN",
+            "numero_empleado": "2729",
+            "nombre": "Kristen",
+            "primer_ap": "Robinson",
+            "segundo_ap": "Maxwell",
+            "id_rol": "4"
+        },
+        {
+            "curp": "CJR625816GYWIKYXT",
+            "numero_empleado": "2144",
+            "nombre": "Allegra",
+            "primer_ap": "Matthews",
+            "segundo_ap": "Atkinson",
+            "id_rol": "3"
+        },
+        {
+            "curp": "CURP123456HGTYSD1",
+            "numero_empleado": "3001",
+            "nombre": "Sofía",
+            "primer_ap": "López",
+            "segundo_ap": "Martínez",
+            "id_rol": "2"
+        },
+        {
+            "curp": "CURP456789HGFRTES3",
+            "numero_empleado": "3003",
+            "nombre": "Camila",
+            "primer_ap": "Torres",
+            "segundo_ap": "Pérez",
+            "id_rol": "2"
+        },
+        {
+            "curp": "CURP987654KJHGFDS2",
+            "numero_empleado": "3002",
+            "nombre": "Andrés",
+            "primer_ap": "Hernández",
+            "segundo_ap": "García",
+            "id_rol": "2"
+        },
+        {
+            "curp": "DDQ673335SNTYIOPC",
+            "numero_empleado": "2710",
+            "nombre": "Aretha",
+            "primer_ap": "Schroeder",
+            "segundo_ap": "Irwin",
+            "id_rol": "4"
+        },
+        {
+            "curp": "DGZ573367EIETJCHK",
+            "numero_empleado": "2234",
+            "nombre": "Roth",
+            "primer_ap": "Weeks",
+            "segundo_ap": "Henderson",
+            "id_rol": "3"
+        },
+        {
+            "curp": "DMD958441ROCSYIUG",
+            "numero_empleado": "2366",
+            "nombre": "Kasper",
+            "primer_ap": "Campbell",
+            "segundo_ap": "Houston",
+            "id_rol": "4"
+        },
+        {
+            "curp": "DOU344174FXEVULSS",
+            "numero_empleado": "2583",
+            "nombre": "Giacomo",
+            "primer_ap": "Simmons",
+            "segundo_ap": "Gates",
+            "id_rol": "4"
+        },
+        {
+            "curp": "EJK320307OYLDRFSM",
+            "numero_empleado": "2511",
+            "nombre": "Ivory",
+            "primer_ap": "Cain",
+            "segundo_ap": "Holder",
+            "id_rol": "4"
+        },
+        {
+            "curp": "EOY359637HKCGFTPY",
+            "numero_empleado": "2462",
+            "nombre": "Ashely",
+            "primer_ap": "Jackson",
+            "segundo_ap": "Glenn",
+            "id_rol": "4"
+        },
+        {
+            "curp": "ESJ612790PQUTSTUD",
+            "numero_empleado": "2205",
+            "nombre": "Anastasia",
+            "primer_ap": "Glenn",
+            "segundo_ap": "Daugherty",
+            "id_rol": "4"
+        },
+        {
+            "curp": "FNT691485YEBQNGWX",
+            "numero_empleado": "2050",
+            "nombre": "Jillian",
+            "primer_ap": "Mcleod",
+            "segundo_ap": "Chang",
+            "id_rol": "4"
+        },
+        {
+            "curp": "FUJ488187PLQTFMWN",
+            "numero_empleado": "2131",
+            "nombre": "Jesse",
+            "primer_ap": "Kaufman",
+            "segundo_ap": "Hutchinson",
+            "id_rol": "4"
+        },
+        {
+            "curp": "GNE093791LBBOQEAQ",
+            "numero_empleado": "2924",
+            "nombre": "Eugenia",
+            "primer_ap": "Lane",
+            "segundo_ap": "Beach",
+            "id_rol": "4"
+        },
+        {
+            "curp": "GQH055858MFWNFRNS",
+            "numero_empleado": "2541",
+            "nombre": "Portia",
+            "primer_ap": "Kidd",
+            "segundo_ap": "Vang",
+            "id_rol": "4"
+        },
+        {
+            "curp": "GYH424225VKSLSLLH",
+            "numero_empleado": "2879",
+            "nombre": "Asher",
+            "primer_ap": "Coffey",
+            "segundo_ap": "Fischer",
+            "id_rol": "4"
+        },
+        {
+            "curp": "HJU562874DPGOCFJS",
+            "numero_empleado": "2398",
+            "nombre": "Yvette",
+            "primer_ap": "Peterson",
+            "segundo_ap": "George",
+            "id_rol": "4"
+        },
+        {
+            "curp": "IMK616646MEOXVLDQ",
+            "numero_empleado": "2032",
+            "nombre": "Jacob",
+            "primer_ap": "Anthony",
+            "segundo_ap": "Mckinney",
+            "id_rol": "4"
+        },
+        {
+            "curp": "JTO380628SVTVAQKJ",
+            "numero_empleado": "2968",
+            "nombre": "Steel",
+            "primer_ap": "Vargas",
+            "segundo_ap": "Dillon",
+            "id_rol": "3"
+        },
+        {
+            "curp": "KAF378491RMEFQAZW",
+            "numero_empleado": "2147",
+            "nombre": "Amity",
+            "primer_ap": "Hutchinson",
+            "segundo_ap": "O'brien",
+            "id_rol": "4"
+        },
+        {
+            "curp": "KMU036928XSMFSYLF",
+            "numero_empleado": "2563",
+            "nombre": "Melyssa",
+            "primer_ap": "Duncan",
+            "segundo_ap": "Faulkner",
+            "id_rol": "4"
+        },
+        {
+            "curp": "LXE491474QRHGYURW",
+            "numero_empleado": "2555",
+            "nombre": "Raja",
+            "primer_ap": "Woods",
+            "segundo_ap": "Callahan",
+            "id_rol": "4"
+        },
+        {
+            "curp": "MRN659174MPSMHQJO",
+            "numero_empleado": "2006",
+            "nombre": "Grant",
+            "primer_ap": "Morton",
+            "segundo_ap": "Hays",
+            "id_rol": "4"
+        },
+        {
+            "curp": "NKR663254FCBEDQDO",
+            "numero_empleado": "2687",
+            "nombre": "Rylee",
+            "primer_ap": "Valdez",
+            "segundo_ap": "Garcia",
+            "id_rol": "4"
+        },
+        {
+            "curp": "NNH648169LFXSMBTB",
+            "numero_empleado": "2042",
+            "nombre": "Fredericka",
+            "primer_ap": "Daniel",
+            "segundo_ap": "Barlow",
+            "id_rol": "3"
+        },
+        {
+            "curp": "NOT404728NHYEGRRY",
+            "numero_empleado": "2237",
+            "nombre": "Cheryl",
+            "primer_ap": "Fitzgerald",
+            "segundo_ap": "Yang",
+            "id_rol": "4"
+        },
+        {
+            "curp": "NTV733464DJPIBBKE",
+            "numero_empleado": "2381",
+            "nombre": "Byron",
+            "primer_ap": "Kim",
+            "segundo_ap": "Klein",
+            "id_rol": "4"
+        },
+        {
+            "curp": "ODS186808KRNVGLCH",
+            "numero_empleado": "2680",
+            "nombre": "Rinah",
+            "primer_ap": "Hurst",
+            "segundo_ap": "Manning",
+            "id_rol": "4"
+        },
+        {
+            "curp": "PLU576741BMDQQVCP",
+            "numero_empleado": "2591",
+            "nombre": "Cain",
+            "primer_ap": "Porter",
+            "segundo_ap": "Boyd",
+            "id_rol": "4"
+        },
+        {
+            "curp": "PQD313688KIHKVHFB",
+            "numero_empleado": "2686",
+            "nombre": "Upton",
+            "primer_ap": "Prince",
+            "segundo_ap": "Phelps",
+            "id_rol": "3"
+        },
+        {
+            "curp": "QDJ313047AKLRIQBM",
+            "numero_empleado": "2684",
+            "nombre": "Bethany",
+            "primer_ap": "Ewing",
+            "segundo_ap": "Robertson",
+            "id_rol": "4"
+        },
+        {
+            "curp": "QDN622850LGYVUBTF",
+            "numero_empleado": "2409",
+            "nombre": "Elmo",
+            "primer_ap": "Gill",
+            "segundo_ap": "Luna",
+            "id_rol": "4"
+        },
+        {
+            "curp": "RCL613026GZCGWGIA",
+            "numero_empleado": "2122",
+            "nombre": "Malik",
+            "primer_ap": "Neal",
+            "segundo_ap": "Landry",
+            "id_rol": "4"
+        },
+        {
+            "curp": "RDS682338XATGMTRB",
+            "numero_empleado": "2547",
+            "nombre": "Elmo",
+            "primer_ap": "Martinez",
+            "segundo_ap": "Dodson",
+            "id_rol": "4"
+        },
+        {
+            "curp": "SAE778347CPYQVEEY",
+            "numero_empleado": "2459",
+            "nombre": "Roary",
+            "primer_ap": "Tyson",
+            "segundo_ap": "Jacobs",
+            "id_rol": "3"
+        },
+        {
+            "curp": "SEJ587364QPOMISDH",
+            "numero_empleado": "2734",
+            "nombre": "Hakeem",
+            "primer_ap": "Bradshaw",
+            "segundo_ap": "Leonard",
+            "id_rol": "3"
+        },
+        {
+            "curp": "SHX824210GNJSGXWY",
+            "numero_empleado": "2335",
+            "nombre": "Celeste",
+            "primer_ap": "Wilkinson",
+            "segundo_ap": "Cotton",
+            "id_rol": "3"
+        },
+        {
+            "curp": "SMX288340HJGNRHGB",
+            "numero_empleado": "2681",
+            "nombre": "Isaiah",
+            "primer_ap": "Hunter",
+            "segundo_ap": "Vinson",
+            "id_rol": "4"
+        },
+        {
+            "curp": "SZC677005MPPQCYEN",
+            "numero_empleado": "2038",
+            "nombre": "Barclay",
+            "primer_ap": "Henson",
+            "segundo_ap": "Hughes",
+            "id_rol": "4"
+        },
+        {
+            "curp": "TJH518517UQVULBKS",
+            "numero_empleado": "2642",
+            "nombre": "Isadora",
+            "primer_ap": "Valenzuela",
+            "segundo_ap": "Lara",
+            "id_rol": "4"
+        },
+        {
+            "curp": "UCK398163HLRQGIAR",
+            "numero_empleado": "2194",
+            "nombre": "Gay",
+            "primer_ap": "Finley",
+            "segundo_ap": "Burt",
+            "id_rol": "4"
+        },
+        {
+            "curp": "UJI322843BRLSXPUJ",
+            "numero_empleado": "2797",
+            "nombre": "Vaughan",
+            "primer_ap": "Stevenson",
+            "segundo_ap": "Boone",
+            "id_rol": "3"
+        },
+        {
+            "curp": "UNX602243XGQLNTTE",
+            "numero_empleado": "2680",
+            "nombre": "Tana",
+            "primer_ap": "French",
+            "segundo_ap": "Jimenez",
+            "id_rol": "4"
+        },
+        {
+            "curp": "USB315032PBIFFGVE",
+            "numero_empleado": "2078",
+            "nombre": "Tatum",
+            "primer_ap": "Rasmussen",
+            "segundo_ap": "Silva",
+            "id_rol": "4"
+        },
+        {
+            "curp": "VNP267089JCPELICP",
+            "numero_empleado": "2274",
+            "nombre": "Dominic",
+            "primer_ap": "Cannon",
+            "segundo_ap": "Weeks",
+            "id_rol": "4"
+        },
+        {
+            "curp": "VRU899723OKVGKIJI",
+            "numero_empleado": "2375",
+            "nombre": "Maite",
+            "primer_ap": "Pierce",
+            "segundo_ap": "Wagner",
+            "id_rol": "4"
+        },
+        {
+            "curp": "WNX564268PJWDWFDL",
+            "numero_empleado": "2359",
+            "nombre": "Audrey",
+            "primer_ap": "Reed",
+            "segundo_ap": "Blackburn",
+            "id_rol": "4"
+        },
+        {
+            "curp": "WRI513031IWLQROLD",
+            "numero_empleado": "2160",
+            "nombre": "Clark",
+            "primer_ap": "Winters",
+            "segundo_ap": "Whitfield",
+            "id_rol": "4"
+        },
+        {
+            "curp": "WUK257446UDJFYEKD",
+            "numero_empleado": "2343",
+            "nombre": "Deborah",
+            "primer_ap": "Glover",
+            "segundo_ap": "Donovan",
+            "id_rol": "4"
+        },
+        {
+            "curp": "WXU912368VIJCYZLV",
+            "numero_empleado": "2955",
+            "nombre": "Dana",
+            "primer_ap": "Porter",
+            "segundo_ap": "Bauer",
+            "id_rol": "4"
+        },
+        {
+            "curp": "XHN180027NXVRIRWS",
+            "numero_empleado": "2847",
+            "nombre": "Kenneth",
+            "primer_ap": "Hodges",
+            "segundo_ap": "Hensley",
+            "id_rol": "4"
+        },
+        {
+            "curp": "XQI182143MVNMGNEW",
+            "numero_empleado": "2777",
+            "nombre": "Talon",
+            "primer_ap": "Valencia",
+            "segundo_ap": "Frazier",
+            "id_rol": "4"
+        },
+        {
+            "curp": "XTS538337FOSHGOWU",
+            "numero_empleado": "2567",
+            "nombre": "Cara",
+            "primer_ap": "Bowen",
+            "segundo_ap": "French",
+            "id_rol": "4"
+        },
+        {
+            "curp": "YMP249172MRORWMWT",
+            "numero_empleado": "2167",
+            "nombre": "Neville",
+            "primer_ap": "Fowler",
+            "segundo_ap": "Blackwell",
+            "id_rol": "3"
+        },
+        {
+            "curp": "YSG118758TOQEJGDG",
+            "numero_empleado": "2203",
+            "nombre": "Cheyenne",
+            "primer_ap": "Mclean",
+            "segundo_ap": "Dillon",
+            "id_rol": "4"
+        },
+        {
+            "curp": "YWK612803HEAVSSMP",
+            "numero_empleado": "2914",
+            "nombre": "Meghan",
+            "primer_ap": "Nunez",
+            "segundo_ap": "Collins",
+            "id_rol": "4"
+        }
+    ]
+}
