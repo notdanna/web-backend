@@ -114,8 +114,12 @@ const TiempoPago = () => {
           <Button variant="secondary" onClick={() => navigate(-1)}>
             Cancelar
           </Button>
-          <Button variant="dark" type="submit">
-            Enviar Solicitud
+          <Button
+            variant="dark"
+            type="submit"
+            onClick={() => navigate("/seguimientoTipoPago")}
+          >
+            Siguiente
           </Button>
         </div>
       </Form>

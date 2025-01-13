@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Table, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Pie, Line } from "react-chartjs-2";
+import { SessionContext } from "../../components/SessionContext";
+
 import {
   Chart as ChartJS,
   LineElement,
@@ -25,36 +27,35 @@ ChartJS.register(
 );
 
 const InicioDocente = () => {
-  const [userName, setUserName] = useState("Usuario");
+  const { userName } = useContext(SessionContext); // Obtén directamente el nombre de usuario desde el contexto
   const [historial, setHistorial] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setUserName("Juan Pérez");
     const historialData = [
       {
-        nombre: "Juan Pérez",
+        nombre: userName,
         tramite: "Solicitud de Certificado",
         estatus: "Completado",
         fecha: "2025-01-10",
         pdf: "certificado.pdf",
       },
       {
-        nombre: "Juan Pérez",
+        nombre: userName,
         tramite: "Cambio de Dirección",
         estatus: "Pendiente",
         fecha: "2025-01-08",
         pdf: null,
       },
       {
-        nombre: "Juan Pérez",
+        nombre: userName,
         tramite: "Actualización de Datos",
         estatus: "Completado",
         fecha: "2025-02-15",
         pdf: "actualizacion.pdf",
       },
       {
-        nombre: "Juan Pérez",
+        nombre: userName,
         tramite: "Solicitud de Beca",
         estatus: "Pendiente",
         fecha: "2025-02-20",
@@ -62,7 +63,7 @@ const InicioDocente = () => {
       },
     ];
     setHistorial(historialData);
-  }, []);
+  }, [userName]);
 
   // Transformar datos para la gráfica de líneas
   const meses = [
@@ -177,11 +178,11 @@ const InicioDocente = () => {
         <h2 className="text-center mb-5">Estadísticas de Trámites</h2>
         <div className="row">
           <div className="col-md-6">
-            <h5 className="text-center">Trámites Enviados por Mes (Líneas)</h5>
+            <h5 className="text-center">Trámites Enviados por Mes </h5>
             <Line data={lineChartData} options={lineChartOptions} />
           </div>
           <div className="col-md-6">
-            <h5 className="text-center">Distribución de Trámites (Circular)</h5>
+            <h5 className="text-center">Distribución de Trámites </h5>
             <Pie data={pieChartData} options={pieChartOptions} />
           </div>
         </div>

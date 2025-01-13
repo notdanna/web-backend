@@ -16,7 +16,8 @@ import InicioJefe from "./pages/jefeAcademia/InicioJefe";
 import InicioAdministrador from "./pages/administrador/InicioAdmistrador";
 import InicioCapital from "./pages/capitalHumano/inicioCapital";
 import TiempoPago from "./pages/docente/TiempoPago";
-import ProtectedRoute from "./components/RutasProtegidas"; // Importa rutas protegidas
+import SeguimientoTipoPago from "./pages/docente/SeguimientoTiempoPago";
+import ProtectedRoute from "./components/RutasProtegidas";
 import "./App.css";
 
 const App = () => {
@@ -42,6 +43,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <InicioDocente />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/seguimientoTipoPago"
+              element={
+                <ProtectedRoute>
+                  <SeguimientoTipoPago />
                 </ProtectedRoute>
               }
             />

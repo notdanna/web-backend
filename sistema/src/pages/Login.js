@@ -8,8 +8,7 @@ import { SessionContext } from "../components/SessionContext"; // Importar el co
 const Login = ({ isDarkMode }) => {
   const navigate = useNavigate();
   const formRef = useRef(null);
-  const { login } = useContext(SessionContext); // Obtener la función `login` del contexto
-
+  const { login } = useContext(SessionContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
