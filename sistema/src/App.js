@@ -16,6 +16,9 @@ import OpcionesDocentes from "./pages/docente/OpcionesDocentes";
 import CorrimientoHorario from "./pages/docente/CorrimientoHorario";
 import DiaEconomico from "./pages/docente/DiaEconomico";
 import TiempoPago from "./pages/docente/TiempoPago";
+import InicioJefe from "./pages/jefeAcademia/InicioJefe";
+import InicioAdministrador from "./pages/administrador/InicioAdmistrador";
+import InicioCapital from "./pages/capitalHumano/inicioCapital";
 import "./App.css";
 
 const Navbar = () => {
@@ -87,6 +90,9 @@ const App = () => {
           <Route path="/corrimiento-horario" element={<CorrimientoHorario />} />
           <Route path="/dia-economico" element={<DiaEconomico />} />{" "}
           <Route path="/tiempoPago" element={<TiempoPago />} />{" "}
+          <Route path="/inicioJefe" element={<InicioJefe />} />{" "}
+          <Route path="/inicioAdmistrador" element={<InicioAdministrador />} />{" "}
+          <Route path="/inicioCapital" element={<InicioCapital />} />{" "}
         </Routes>
       </div>
     </Router>

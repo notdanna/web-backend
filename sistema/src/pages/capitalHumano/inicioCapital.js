@@ -1,16 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Table, Button, Card, Row, Col } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-const InicioJefe = () => {
-  const [jefeName, setJefeName] = useState("Nombre del Jefe");
+const InicioCapital = () => {
   const [reportes, setReportes] = useState([]);
-  const [docentes, setDocentes] = useState([]);
 
   useEffect(() => {
-    // Simular la obtención de datos del jefe, reportes y docentes
-    const obtenerDatos = async () => {
-      const nombre = "María García"; // Nombre del jefe
+    // Simular la obtención de datos de los reportes
+    const obtenerReportes = async () => {
       const datosReportes = [
         {
           nombre: "Juan Pérez",
@@ -28,30 +25,10 @@ const InicioJefe = () => {
         },
       ];
 
-      const datosDocentes = [
-        {
-          nombre: "Carlos Hernández",
-          email: "carlos.h@gmail.com",
-          telefono: "555-123-4567",
-        },
-        {
-          nombre: "Lucía Ramírez",
-          email: "lucia.r@gmail.com",
-          telefono: "555-987-6543",
-        },
-        {
-          nombre: "Fernando Díaz",
-          email: "fernando.d@gmail.com",
-          telefono: "555-567-8901",
-        },
-      ];
-
-      setJefeName(nombre);
       setReportes(datosReportes);
-      setDocentes(datosDocentes);
     };
 
-    obtenerDatos();
+    obtenerReportes();
   }, []);
 
   const handleStatusChange = (index) => {
@@ -87,29 +64,7 @@ const InicioJefe = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Bienvenido, {jefeName}</h1>
-
-      {/* Sección de Docentes */}
-      <div className="mb-5">
-        <h2 className="text-center">Docentes de tu Área</h2>
-        <Row className="g-4">
-          {docentes.map((docente, index) => (
-            <Col md={4} key={index}>
-              <Card className="shadow">
-                <Card.Body>
-                  <Card.Title>{docente.nombre}</Card.Title>
-                  <Card.Text>
-                    <strong>Email:</strong> {docente.email}
-                  </Card.Text>
-                  <Card.Text>
-                    <strong>Teléfono:</strong> {docente.telefono}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
+      <h1 className="text-center mb-4">Bienvenido</h1>
 
       {/* Tabla de Reportes */}
       <div>
@@ -173,4 +128,4 @@ const InicioJefe = () => {
   );
 };
 
-export default InicioJefe;
+export default InicioCapital;

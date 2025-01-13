@@ -40,7 +40,7 @@ const Login = ({ isDarkMode }) => {
       title: "Inicio de sesión exitoso",
       confirmButtonColor: "#000",
     }).then(() => {
-      navigate("/inicio-docente"); // Redirige al componente InicioDocente
+      navigate("/inicioCapital"); // Redirige al componente InicioDocente
     });
   };
 
