@@ -1,14 +1,16 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/login.css";
 import Swal from "sweetalert2";
+import { SessionContext } from "../components/SessionContext"; // Importar el contexto de sesión
 
 const Login = ({ isDarkMode }) => {
   const navigate = useNavigate();
   const formRef = useRef(null);
+  const { login } = useContext(SessionContext); // Obtener la función `login` del contexto
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
     const curp = formData.get("curp");
@@ -35,13 +37,62 @@ const Login = ({ isDarkMode }) => {
       return;
     }
 
-    Swal.fire({
-      icon: "success",
-      title: "Inicio de sesión exitoso",
-      confirmButtonColor: "#000",
-    }).then(() => {
-      navigate("/inicioCapital"); // Redirige al componente InicioDocente
-    });
+    try {
+      console.log("Datos enviados al backend:", { curp, contrasena: password });
+
+      // Realizar la solicitud al backend
+      const response = await fetch(
+        "http://localhost/web-backend/api/session/login.php",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ curp, contrasena: password }), // Enviar los datos como JSON
+          credentials: "include", // Incluir cookies si el backend las usa
+        }
+      );
+
+      const data = await response.json();
+
+      if (data.status === "success") {
+        Swal.fire({
+          icon: "success",
+          title: "Inicio de sesión exitoso",
+          text: `Bienvenido ${data.user.nombre}`,
+          confirmButtonColor: "#000",
+        }).then(() => {
+          // Actualizar el contexto de sesión
+          login(data.user.nombre);
+
+          // Redirigir al usuario según el rol
+          if (data.user.rol === "1") {
+            navigate("/inicioAdmistrador"); // Página para administradores
+          } else if (data.user.rol === "2") {
+            navigate("/inicioJefe"); // Página para jefes de academia
+          } else if (data.user.rol === "3") {
+            navigate("/inicioCapital"); // Página para capital humano
+          } else if (data.user.rol === "4") {
+            navigate("/inicio-docente"); // Página para docentes
+          } else {
+            navigate("/"); // Página de inicio por defecto
+          }
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error de autenticación",
+          text: data.message,
+          confirmButtonColor: "#000",
+        });
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error de conexión",
+        text: "No se pudo conectar con el servidor.",
+        confirmButtonColor: "#000",
+      });
+      console.error("Error al conectar con el backend:", error);
+    }
   };
 
   return (

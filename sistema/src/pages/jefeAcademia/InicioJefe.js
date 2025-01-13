@@ -12,7 +12,6 @@ import {
   Tooltip,
 } from "chart.js";
 
-// Registrar componentes de Chart.js
 ChartJS.register(
   BarElement,
   CategoryScale,
@@ -28,7 +27,6 @@ const InicioJefe = () => {
   const [docentes, setDocentes] = useState([]);
 
   useEffect(() => {
-    // Simular la obtención de datos del jefe, reportes y docentes
     const obtenerDatos = async () => {
       const nombre = "María García"; // Nombre del jefe
       const datosReportes = [
@@ -90,7 +88,6 @@ const InicioJefe = () => {
         cancelButtonText: "Cancelar",
       }).then((result) => {
         if (result.isConfirmed) {
-          // Actualizar el estado del reporte
           const nuevosReportes = [...reportes];
           nuevosReportes[index] = { ...reporte, estatus: nuevoEstatus };
           setReportes(nuevosReportes);
@@ -105,7 +102,6 @@ const InicioJefe = () => {
     }
   };
 
-  // Datos para gráficos
   const completedReports = reportes.filter(
     (r) => r.estatus === "Completado"
   ).length;
@@ -152,11 +148,11 @@ const InicioJefe = () => {
       <div className="mb-5">
         <h2 className="text-center">Estadísticas de Reportes</h2>
         <Row className="justify-content-center mb-4">
-          <Col md={6}>
+          <Col xs={12} md={6} className="mb-4">
             <h5 className="text-center">Cantidad de Reportes (Barras)</h5>
             <Bar data={barChartData} options={chartOptions} />
           </Col>
-          <Col md={6}>
+          <Col xs={12} md={6}>
             <h5 className="text-center">Distribución de Reportes (Dona)</h5>
             <Doughnut data={doughnutChartData} options={chartOptions} />
           </Col>
@@ -168,7 +164,7 @@ const InicioJefe = () => {
         <h2 className="text-center">Docentes de tu Área</h2>
         <Row className="g-4">
           {docentes.map((docente, index) => (
-            <Col md={4} key={index}>
+            <Col xs={12} sm={6} md={4} key={index}>
               <Card className="shadow">
                 <Card.Body>
                   <Card.Title>{docente.nombre}</Card.Title>
@@ -188,60 +184,64 @@ const InicioJefe = () => {
       {/* Tabla de Reportes */}
       <div>
         <h2 className="text-center mb-4">Listado de Reportes de Incidencia</h2>
-        <Table striped bordered hover responsive>
-          <thead>
-            <tr>
-              <th>Nombre</th>
-              <th>Trámite</th>
-              <th>Estatus</th>
-              <th>Fecha de Solicitud</th>
-              <th>Ver PDF</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {reportes.map((reporte, index) => (
-              <tr key={index}>
-                <td>{reporte.nombre}</td>
-                <td>{reporte.tramite}</td>
-                <td>
-                  <Button
-                    variant={
-                      reporte.estatus === "Completado"
-                        ? "success"
-                        : "outline-secondary"
-                    }
-                    onClick={() => handleStatusChange(index)}
-                  >
-                    {reporte.estatus}
-                  </Button>
-                </td>
-                <td>{reporte.fecha}</td>
-                <td>
-                  {reporte.pdf ? (
-                    <a
-                      href={`/pdfs/${reporte.pdf}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Ver PDF
-                    </a>
-                  ) : (
-                    "No disponible"
-                  )}
-                </td>
-                <td>
-                  <Button
-                    variant="dark"
-                    onClick={() => alert(`Editar reporte de ${reporte.nombre}`)}
-                  >
-                    Editar
-                  </Button>
-                </td>
+        <div className="table-responsive">
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Trámite</th>
+                <th>Estatus</th>
+                <th>Fecha de Solicitud</th>
+                <th>Ver PDF</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {reportes.map((reporte, index) => (
+                <tr key={index}>
+                  <td>{reporte.nombre}</td>
+                  <td>{reporte.tramite}</td>
+                  <td>
+                    <Button
+                      variant={
+                        reporte.estatus === "Completado"
+                          ? "success"
+                          : "outline-secondary"
+                      }
+                      onClick={() => handleStatusChange(index)}
+                    >
+                      {reporte.estatus}
+                    </Button>
+                  </td>
+                  <td>{reporte.fecha}</td>
+                  <td>
+                    {reporte.pdf ? (
+                      <a
+                        href={`/pdfs/${reporte.pdf}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Ver PDF
+                      </a>
+                    ) : (
+                      "No disponible"
+                    )}
+                  </td>
+                  <td>
+                    <Button
+                      variant="dark"
+                      onClick={() =>
+                        alert(`Editar reporte de ${reporte.nombre}`)
+                      }
+                    >
+                      Editar
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
       </div>
     </div>
   );
