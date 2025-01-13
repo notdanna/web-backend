@@ -1,38 +1,46 @@
 <?php
-// Configuración inicial
+session_start();
+
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/web-backend/api/tools/connect.php';
-
-// Leer datos de la solicitud
-$data = json_decode(file_get_contents('php://input'), true);
-
-// Verificar que se haya proporcionado el CURP
-if (empty($data['curp'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Falta el CURP']);
+if (!isset($_SESSION['user_id'])) {
+    echo json_encode(['status' => 'error', 'message' => 'Sesión no activa']);
     exit;
 }
 
-// Escapar o sanitizar los datos
-$curp = $conn->real_escape_string($data['curp']);
+// Si la sesión está activa, responder con los datos del usuario
+echo json_encode([
+    'status' => 'success',
+    'rol' => $_SESSION['rol']
+]);
 
-// Consultar el rol del usuario
-$query = "SELECT id_rol FROM usuarios WHERE curp = ?";
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $curp);
-$stmt->execute();
-$result = $stmt->get_result();
+/*
+const checkSession = async () => {
+    try {
+        const response = await fetch("http://localhost/proyecto-backend/check_session.php");
+        const data = await response.json();
+        
+        if (data.status === "success") {
+            console.log("Sesión activa:", data.user);
+        } else {
+            console.log("No hay sesión activa.");
+            // React maneja la redirección
+            window.location.href = "/login";
+        }
+    } catch (error) {
+        console.error("Error al verificar la sesión:", error);
+    }
+};
 
-if ($result->num_rows > 0) {
-    $user = $result->fetch_assoc();
-    echo json_encode(['status' => 'success', 'rol' => $user['id_rol']]);
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Usuario no encontrado']);
-}
+checkSession();
 
-// Cerrar conexión
-$conn->close();
+*/
+
+
+
+
 ?>
+
+
+
