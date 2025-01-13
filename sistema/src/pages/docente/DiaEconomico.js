@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 const DiaEconomico = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    curp_peticion: "",
-    rol_origen: 4,
-    rol_destino: 3,
-    id_tramite: 1,
-    fecha_incidencia: "",
-    descripcion_incidencia: "",
-    horas_faltantes: 8,
+    curp_peticion: "DOU344174FXEVULSS",
+    rol_origen: "Docente",
+    rol_destino: "Jefe de Academia",
+    tramite: "Dia Económico",
+    fecha_incidencia: "2025-01-15",
+    descripcion_incidencia:
+      "El docente solicita un día económico por asuntos personales.",
   });
 
   const handleChange = (e) => {
@@ -34,12 +34,47 @@ const DiaEconomico = () => {
     <div className="container mt-5">
       <h1 className="text-center mb-4">Solicitud de Día Económico</h1>
       <Form onSubmit={handleSubmit}>
+        {/* Campos no editables */}
+        <Form.Group controlId="rol_origen" className="mb-3">
+          <Form.Label>Rol de Origen</Form.Label>
+          <Form.Control
+            type="text"
+            name="rol_origen"
+            value={formData.rol_origen}
+            readOnly
+            disabled
+          />
+        </Form.Group>
+
+        <Form.Group controlId="rol_destino" className="mb-3">
+          <Form.Label>Rol de Destino</Form.Label>
+          <Form.Control
+            type="text"
+            name="rol_destino"
+            value={formData.rol_destino}
+            readOnly
+            disabled
+          />
+        </Form.Group>
+
+        <Form.Group controlId="tramite" className="mb-3">
+          <Form.Label>Trámite</Form.Label>
+          <Form.Control
+            type="text"
+            name="tramite"
+            value={formData.tramite}
+            readOnly
+            disabled
+          />
+        </Form.Group>
+
+        {/* Campos editables */}
         <Form.Group controlId="curp_peticion" className="mb-3">
           <Form.Label>CURP del Peticionario</Form.Label>
           <Form.Control
             type="text"
             name="curp_peticion"
-            value={formData.curp_peticion}
+            placeholder={formData.curp_peticion}
             onChange={handleChange}
             required
           />
@@ -50,7 +85,7 @@ const DiaEconomico = () => {
           <Form.Control
             type="date"
             name="fecha_incidencia"
-            value={formData.fecha_incidencia}
+            placeholder={formData.fecha_incidencia}
             onChange={handleChange}
             required
           />
@@ -62,18 +97,7 @@ const DiaEconomico = () => {
             as="textarea"
             rows={3}
             name="descripcion_incidencia"
-            value={formData.descripcion_incidencia}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group controlId="horas_faltantes" className="mb-3">
-          <Form.Label>Horas Faltantes</Form.Label>
-          <Form.Control
-            type="number"
-            name="horas_faltantes"
-            value={formData.horas_faltantes}
+            placeholder={formData.descripcion_incidencia}
             onChange={handleChange}
             required
           />

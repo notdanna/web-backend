@@ -15,10 +15,10 @@ import InicioDocente from "./pages/docente/InicioDocente";
 import OpcionesDocentes from "./pages/docente/OpcionesDocentes";
 import CorrimientoHorario from "./pages/docente/CorrimientoHorario";
 import DiaEconomico from "./pages/docente/DiaEconomico";
-import TiempoPago from "./pages/docente/TiempoPago";
 import InicioJefe from "./pages/jefeAcademia/InicioJefe";
 import InicioAdministrador from "./pages/administrador/InicioAdmistrador";
 import InicioCapital from "./pages/capitalHumano/inicioCapital";
+import TiempoPago from "./pages/docente/TiempoPago";
 import "./App.css";
 
 const Navbar = () => {

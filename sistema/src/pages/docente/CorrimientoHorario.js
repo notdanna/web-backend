@@ -6,9 +6,9 @@ const CorrimientoHorario = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     curp_peticion: "",
-    rol_origen: 4,
-    rol_destino: 3,
-    id_tramite: 3,
+    rol_origen: "Docente",
+    rol_destino: "Jefe de Academia",
+    tramite: "Corrimiento de Horario",
     horario: {
       dia: "",
       hora_inicio: "",
@@ -66,7 +66,7 @@ const CorrimientoHorario = () => {
         <Form.Group className="mb-3">
           <Form.Label>Rol Origen</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             name="rol_origen"
             value={formData.rol_origen}
             onChange={handleChange}
@@ -78,7 +78,7 @@ const CorrimientoHorario = () => {
         <Form.Group className="mb-3">
           <Form.Label>Rol Destino</Form.Label>
           <Form.Control
-            type="number"
+            type="text"
             name="rol_destino"
             value={formData.rol_destino}
             onChange={handleChange}
@@ -90,9 +90,9 @@ const CorrimientoHorario = () => {
         <Form.Group className="mb-3">
           <Form.Label>ID del Trámite</Form.Label>
           <Form.Control
-            type="number"
-            name="id_tramite"
-            value={formData.id_tramite}
+            type="text"
+            name="tramite"
+            value={formData.tramite}
             onChange={handleChange}
             disabled
           />

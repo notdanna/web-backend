@@ -1,6 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { Table, Button, Card, Row, Col } from "react-bootstrap";
 import Swal from "sweetalert2";
+import { Bar, Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  Legend,
+  Tooltip,
+} from "chart.js";
+
+// Registrar componentes de Chart.js
+ChartJS.register(
+  BarElement,
+  CategoryScale,
+  LinearScale,
+  ArcElement,
+  Legend,
+  Tooltip
+);
 
 const InicioJefe = () => {
   const [jefeName, setJefeName] = useState("Nombre del Jefe");
@@ -85,9 +105,63 @@ const InicioJefe = () => {
     }
   };
 
+  // Datos para gráficos
+  const completedReports = reportes.filter(
+    (r) => r.estatus === "Completado"
+  ).length;
+  const pendingReports = reportes.filter(
+    (r) => r.estatus === "Pendiente"
+  ).length;
+
+  const barChartData = {
+    labels: ["Completados", "Pendientes"],
+    datasets: [
+      {
+        label: "Cantidad de reportes",
+        data: [completedReports, pendingReports],
+        backgroundColor: ["#ffffff", "#003785"],
+      },
+    ],
+  };
+
+  const doughnutChartData = {
+    labels: ["Completados", "Pendientes"],
+    datasets: [
+      {
+        data: [completedReports, pendingReports],
+        backgroundColor: ["#4caf50", "#f44336"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+  };
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Bienvenido, {jefeName}</h1>
+
+      {/* Gráficos */}
+      <div className="mb-5">
+        <h2 className="text-center">Estadísticas de Reportes</h2>
+        <Row className="justify-content-center mb-4">
+          <Col md={6}>
+            <h5 className="text-center">Cantidad de Reportes (Barras)</h5>
+            <Bar data={barChartData} options={chartOptions} />
+          </Col>
+          <Col md={6}>
+            <h5 className="text-center">Distribución de Reportes (Dona)</h5>
+            <Doughnut data={doughnutChartData} options={chartOptions} />
+          </Col>
+        </Row>
+      </div>
 
       {/* Sección de Docentes */}
       <div className="mb-5">

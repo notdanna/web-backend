@@ -1,5 +1,25 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
+import { Line, Pie } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Legend,
+  Tooltip,
+} from "chart.js";
+
+// Registrar componentes de Chart.js
+ChartJS.register(
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Legend,
+  Tooltip
+);
 
 const InicioAdministrador = () => {
   const [reportes, setReportes] = useState([
@@ -8,7 +28,7 @@ const InicioAdministrador = () => {
       nombre: "Juan Pérez",
       tramite: "Solicitud de Certificado",
       estatus: "Completado",
-      fecha: "2025-01-10",
+      fecha: "2025-01-05",
       pdf: "Disponible",
     },
     {
@@ -16,7 +36,23 @@ const InicioAdministrador = () => {
       nombre: "Ana López",
       tramite: "Cambio de Dirección",
       estatus: "Pendiente",
+      fecha: "2025-01-06",
+      pdf: "No disponible",
+    },
+    {
+      id: 3,
+      nombre: "Luis Martínez",
+      tramite: "Actualización de Datos",
+      estatus: "Completado",
       fecha: "2025-01-08",
+      pdf: "Disponible",
+    },
+    {
+      id: 4,
+      nombre: "Carla Gómez",
+      tramite: "Solicitud de Beca",
+      estatus: "Pendiente",
+      fecha: "2025-01-10",
       pdf: "No disponible",
     },
   ]);
@@ -82,9 +118,105 @@ const InicioAdministrador = () => {
     }
   };
 
+  // Transformar datos para la gráfica de líneas
+  const fechas = Array.from(new Set(reportes.map((r) => r.fecha))).sort();
+  const acumuladosCompletados = fechas.map(
+    (fecha) =>
+      reportes.filter((r) => r.fecha <= fecha && r.estatus === "Completado")
+        .length
+  );
+  const acumuladosPendientes = fechas.map(
+    (fecha) =>
+      reportes.filter((r) => r.fecha <= fecha && r.estatus === "Pendiente")
+        .length
+  );
+
+  const lineChartData = {
+    labels: fechas,
+    datasets: [
+      {
+        label: "Completados",
+        data: acumuladosCompletados,
+        borderColor: "#4caf50",
+        backgroundColor: "rgba(76, 175, 80, 0.2)",
+        fill: true,
+        tension: 0.3,
+      },
+      {
+        label: "Pendientes",
+        data: acumuladosPendientes,
+        borderColor: "#f44336",
+        backgroundColor: "rgba(244, 67, 54, 0.2)",
+        fill: true,
+        tension: 0.3,
+      },
+    ],
+  };
+
+  const lineChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: "Fechas",
+        },
+      },
+      y: {
+        title: {
+          display: true,
+          text: "Cantidad acumulada de reportes",
+        },
+        beginAtZero: true,
+      },
+    },
+  };
+
+  const pieChartData = {
+    labels: ["Completados", "Pendientes"],
+    datasets: [
+      {
+        data: [
+          reportes.filter((r) => r.estatus === "Completado").length,
+          reportes.filter((r) => r.estatus === "Pendiente").length,
+        ],
+        backgroundColor: ["#fffff", "#003785"],
+      },
+    ],
+  };
+
+  const pieChartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top",
+      },
+    },
+  };
+
   return (
     <div className="container my-4">
       <h1 className="mb-4">Bienvenido, María García</h1>
+
+      {/* Gráficos */}
+      <div className="mb-5">
+        <h2 className="text-center">Estadísticas de Reportes</h2>
+        <div className="row">
+          <div className="col-md-6">
+            <h5 className="text-center">Reportes Acumulados por Estado</h5>
+            <Line data={lineChartData} options={lineChartOptions} />
+          </div>
+          <div className="col-md-6">
+            <h5 className="text-center">Distribución de Reportes (Circular)</h5>
+            <Pie data={pieChartData} options={pieChartOptions} />
+          </div>
+        </div>
+      </div>
 
       <h2 className="mb-3">Usuarios de tu Área</h2>
       <div className="row mb-4">
