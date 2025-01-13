@@ -1,60 +1,74 @@
 <?php
 // Configuración inicial
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *'); // Cambia * a tu dominio en producción
-header('Access-Control-Allow-Methods: PUT');
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: PUT, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/web-backend/api/tools/connect.php';
 
+// Manejar solicitudes OPTIONS (preflight)
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    exit(0);
+}
+
 // Leer datos de la solicitud
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Verificar que los datos necesarios estén presentes
+// Verificar que se haya proporcionado el CURP
 if (empty($data['curp'])) {
     echo json_encode(['status' => 'error', 'message' => 'Falta el CURP del usuario a actualizar']);
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/web-backend/api/tools/auth.php';
     exit;
 }
 
 // Escapar o sanitizar los datos
 $curp = $conn->real_escape_string($data['curp']);
-$numero_empleado = isset($data['numero_empleado']) ? $conn->real_escape_string($data['numero_empleado']) : null;
-$nombre = isset($data['nombre']) ? $conn->real_escape_string($data['nombre']) : null;
-$primer_ap = isset($data['primer_ap']) ? $conn->real_escape_string($data['primer_ap']) : null;
-$segundo_ap = isset($data['segundo_ap']) ? $conn->real_escape_string($data['segundo_ap']) : null;
-$contrasena = isset($data['contrasena']) ? password_hash($data['contrasena'], PASSWORD_DEFAULT) : null;
-$id_rol = isset($data['id_rol']) ? $conn->real_escape_string($data['id_rol']) : null;
+$rol = isset($data['rol']) ? $data['rol'] : null;
 
-// Construir consulta dinámica para actualizar solo los campos proporcionados
-$fields_to_update = [];
-if ($numero_empleado !== null) $fields_to_update[] = "numero_empleado = '$numero_empleado'";
-if ($nombre !== null) $fields_to_update[] = "nombre = '$nombre'";
-if ($primer_ap !== null) $fields_to_update[] = "primer_ap = '$primer_ap'";
-if ($segundo_ap !== null) $fields_to_update[] = "segundo_ap = '$segundo_ap'";
-if ($contrasena !== null) $fields_to_update[] = "contrasena = '$contrasena'";
-if ($id_rol !== null) $fields_to_update[] = "id_rol = '$id_rol'";
-
-if (empty($fields_to_update)) {
-    echo json_encode(['status' => 'error', 'message' => 'No se proporcionaron campos para actualizar']);
+// Validar el rol
+if (!$rol) {
+    echo json_encode(['status' => 'error', 'message' => 'Falta el rol del usuario']);
     exit;
 }
 
-$fields_to_update_str = implode(", ", $fields_to_update);
-$query = "UPDATE usuarios SET $fields_to_update_str WHERE curp = ?";
+// Actualizar según el rol
+$conn->begin_transaction();
 
-// Preparar y ejecutar la consulta
-$stmt = $conn->prepare($query);
-$stmt->bind_param("s", $curp);
-
-if ($stmt->execute()) {
-    if ($stmt->affected_rows > 0) {
-        echo json_encode(['status' => 'success', 'message' => 'Usuario actualizado correctamente']);
-    } else {
-        echo json_encode(['status' => 'error', 'message' => 'No se realizaron cambios en el usuario']);
+try {
+    if ($rol == 3 && isset($data['id_academia'])) { // Jefe de academia
+        $id_academia = $conn->real_escape_string($data['id_academia']);
+        $query_jefe = "UPDATE jefes_academia SET id_academia = ? WHERE curp_jef = ?";
+        $stmt_jefe = $conn->prepare($query_jefe);
+        $stmt_jefe->bind_param("ss", $id_academia, $curp);
+        $stmt_jefe->execute();
+    } elseif ($rol == 4 && isset($data['id_academia'], $data['curp_jef'])) { // Docente
+        $id_academia = $conn->real_escape_string($data['id_academia']);
+        $curp_jef = $conn->real_escape_string($data['curp_jef']);
+        $query_docente = "UPDATE docentes SET id_academia = ?, curp_jef = ? WHERE curp_docente = ?";
+        $stmt_docente = $conn->prepare($query_docente);
+        $stmt_docente->bind_param("sss", $id_academia, $curp_jef, $curp);
+        $stmt_docente->execute();
     }
-} else {
-    echo json_encode(['status' => 'error', 'message' => 'Error al actualizar el usuario', 'error' => $stmt->error]);
+
+    // Actualizar los campos generales del usuario
+    $fields_to_update = [];
+    if (isset($data['nombre'])) $fields_to_update[] = "nombre = '{$conn->real_escape_string($data['nombre'])}'";
+    if (isset($data['primer_ap'])) $fields_to_update[] = "primer_ap = '{$conn->real_escape_string($data['primer_ap'])}'";
+    if (isset($data['segundo_ap'])) $fields_to_update[] = "segundo_ap = '{$conn->real_escape_string($data['segundo_ap'])}'";
+    if (isset($data['contrasena'])) $fields_to_update[] = "contrasena = '" . password_hash($data['contrasena'], PASSWORD_DEFAULT) . "'";
+    if (!empty($fields_to_update)) {
+        $fields_to_update_str = implode(", ", $fields_to_update);
+        $query_user = "UPDATE usuarios SET $fields_to_update_str WHERE curp = ?";
+        $stmt_user = $conn->prepare($query_user);
+        $stmt_user->bind_param("s", $curp);
+        $stmt_user->execute();
+    }
+
+    $conn->commit();
+    echo json_encode(['status' => 'success', 'message' => 'Usuario y registros relacionados actualizados correctamente']);
+} catch (Exception $e) {
+    $conn->rollback();
+    echo json_encode(['status' => 'error', 'message' => 'Error al actualizar el usuario', 'error' => $e->getMessage()]);
 }
 
 // Cerrar conexión
