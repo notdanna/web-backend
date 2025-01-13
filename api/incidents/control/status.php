@@ -39,9 +39,13 @@ switch ($accion) {
         break;
     case 'aprobar_jefe':
         $nuevo_estado = 3; // Cambiar a "Aprobado por Jefe Academia"
+        // Llamar al pdf de la solicitud para actualizar el estado y firmar
+        $url = "http://localhost/web-backend/api/incidents/paytime/pdf/PDF_PayTimeEND.php?id_peticion=" . $id_peticion;
+
         break;
     case 'rechazar_jefe':
         $nuevo_estado = 4; // Cambiar a "Rechazado por Jefe Academia"
+
         break;
     case 'aprobar_capital':
         $nuevo_estado = 5; // Cambiar a "Aprobado por Capital Humano"

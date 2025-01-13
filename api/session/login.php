@@ -46,7 +46,7 @@ if ($result && $result->num_rows > 0) {
             $_SESSION['nombre'] = $userData['nombre'] . ' ' . $userData['primer_ap'] . ' ' . $userData['segundo_ap'];
             $_SESSION['rol'] = $userData['id_rol'];
 
-            // Responder con éxito
+            // Responder con éxito1
             echo json_encode([
                 'status' => 'success',
                 'message' => 'Login exitoso',

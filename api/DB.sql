@@ -46,6 +46,7 @@ CREATE TABLE docentes (
 );
 
 
+
 -- AGREGAMOS ALGUNAS COLUMNAS:
 ALTER TABLE usuarios ADD COLUMN link_pdf VARCHAR(255) DEFAULT NULL;
 ALTER TABLE docentes ADD COLUMN permisos_anuales INT DEFAULT 10; 
@@ -303,7 +304,7 @@ VALUES ('Enviado para revisión.'),
 INSERT INTO tramite(nombre_tramite)
 VALUES ('Pago de tiempo adicional'),
        ('Día económico'),
-       ('Permiso especial');
+       ('corrimiento');
 
 -- CREAMOS UNA TABLA PARA LAS PETICIONES
 CREATE TABLE peticiones (
@@ -349,27 +350,7 @@ SELECT COUNT(curp) AS 'NO. EMPLEADOS' FROM usuarios;
 
 
 
-ALTER TABLE peticiones
-ADD COLUMN fecha_incidencia DATE NULL,
-ADD COLUMN descripcion_incidencia TEXT NULL,
-ADD COLUMN horas_faltantes INT NULL;
-
-
-
-UPDATE peticiones
-SET fecha_incidencia = '2025-01-01', -- Fecha válida por defecto
-    descripcion_incidencia = 'Incidencia pendiente de descripción',
-    horas_faltantes = 0
-WHERE fecha_incidencia IS NULL;
-
-
-
-ALTER TABLE peticiones
-MODIFY COLUMN fecha_incidencia DATE NOT NULL,
-MODIFY COLUMN descripcion_incidencia TEXT NOT NULL,
-MODIFY COLUMN horas_faltantes INT NOT NULL;
-
-
+1
 
 
 CREATE TABLE horarios_reposicion (
@@ -381,3 +362,6 @@ CREATE TABLE horarios_reposicion (
     horas_cubiertas INT NOT NULL,               -- Horas cubiertas en ese horario
     FOREIGN KEY (id_peticion) REFERENCES peticiones(id_peticion) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+
+
