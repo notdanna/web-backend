@@ -2,10 +2,18 @@
 // Iniciar la sesión
 session_start();
 
+// Configuración de cabeceras CORS
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: http://localhost:3000'); // Cambia por el origen del frontend
 header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type');
+header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Credentials: true');
+
+// Manejar preflight request
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(200);
+    exit;
+}
 
 include_once $_SERVER['DOCUMENT_ROOT'] . '/web-backend/api/tools/connect.php';
 
@@ -29,7 +37,7 @@ $result = $conn->query($query);
 if ($result && $result->num_rows > 0) {
     $userData = $result->fetch_assoc();
 
-    // Verificar si el usuario tiene una contraseña establecidas
+    // Verificar si el usuario tiene una contraseña establecida
     if (!empty($userData['contrasena'])) {
         // Validar contraseña cifrada
         if (password_verify($contrasena, $userData['contrasena'])) {

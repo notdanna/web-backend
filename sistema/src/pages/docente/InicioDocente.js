@@ -192,7 +192,7 @@ const InicioDocente = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Hola, {userId} 👋</h1>
+      <h1 className="text-center mb-4">Hola, {userName} 👋</h1>
       <h5 className="text-center mb-4">
         Total de Peticiones: {totalPeticiones}
       </h5>
