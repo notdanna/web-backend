@@ -10,7 +10,7 @@ error_reporting(E_ALL);
 ob_start(); // Iniciar buffer de salida para evitar problemas con la salida previa
 
 // Verificar si el usuario tiene sesión activa y un rol válido
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [1, 2, 3])) {
+if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [1, 2, 3, 4])) {
     die("No tiene permisos para realizar esta acción");
 }
 

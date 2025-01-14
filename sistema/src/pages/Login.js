@@ -57,20 +57,19 @@ const Login = ({ isDarkMode }) => {
           icon: "success",
           title: "Inicio de sesión exitoso",
           text: `Bienvenido ${data.user.nombre}`,
-          text: `CURP: ${data.user.id}`,
           
           confirmButtonColor: "#000",
         }).then(() => {
           // Actualizar el contexto de sesión
           login(data.user.nombre, data.user.id);
-          console.log(data.user.id);
+
 
           // Redirigir al usuario según el rol
           if (data.user.rol === "1") {
             navigate("/inicioAdmistrador"); // Página para administradores
-          } else if (data.user.rol === "2") {
-            navigate("/inicioJefe"); // Página para jefes de academia
           } else if (data.user.rol === "3") {
+            navigate("/inicioJefe"); // Página para jefes de academia
+          } else if (data.user.rol === "2") {
             navigate("/inicioCapital"); // Página para capital humano
           } else if (data.user.rol === "4") {
             navigate("/inicio-docente"); // Página para docentes

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
 import "../css/registro.css";
 
 const Registro = () => {
@@ -10,10 +10,10 @@ const Registro = () => {
 
   const [formData, setFormData] = useState({
     nombre: "",
-    apellido: "",
+    primer_ap: "", // Apellido paterno
+    numero_empleado: "", // Número de empleado
     curp: "",
     contrasena: "",
-    numeroEmpleado: "",
     terminos: false,
   });
 
@@ -31,17 +31,15 @@ const Registro = () => {
     if (!formData.nombre || formData.nombre.length < 2) {
       errors.push("El nombre debe tener al menos 2 caracteres.");
     }
-    if (!formData.apellido || formData.apellido.length < 2) {
-      errors.push("El apellido debe tener al menos 2 caracteres.");
+    if (!formData.primer_ap || formData.primer_ap.length < 2) {
+      errors.push("El apellido paterno debe tener al menos 2 caracteres.");
     }
-    if (!formData.curp || formData.curp.length !== 17) {
-      errors.push("El CURP debe tener 18 caracteres.");
+    if (!formData.numero_empleado || isNaN(formData.numero_empleado)) {
+      errors.push("Debe ingresar un número de empleado válido.");
     }
+
     if (!formData.contrasena || formData.contrasena.length < 8) {
       errors.push("La contraseña debe tener al menos 8 caracteres.");
-    }
-    if (!formData.numeroEmpleado) {
-      errors.push("El número de empleado es obligatorio.");
     }
     if (!formData.terminos) {
       errors.push("Debe aceptar los términos y condiciones.");
@@ -67,41 +65,39 @@ const Registro = () => {
 
     if (validateForm()) {
       try {
-        const response = await axios.post(
-          "http://localhost/web-backend/api/session/signin.php",
-          {
+        const response = await fetch("http://localhost/web-backend/api/session/signin.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
             curp: formData.curp,
             contrasena: formData.contrasena,
-          }
-        );
+            nombre: formData.nombre,
+            primer_ap: formData.primer_ap,
+            numero_empleado: parseInt(formData.numero_empleado, 10),
+          }),
+        });
 
-        const result = response.data;
+        const data = await response.json();
 
-        if (result.status === "success") {
+        if (response.ok) {
           swal({
-            text: result.message,
+            text: "Usuario registrado correctamente.",
             icon: "success",
             button: {
               text: "Aceptar",
               className: "btn btn-dark",
             },
           }).then(() => {
-            navigate("../login"); // Redirige tras el éxito
+            navigate("../");
           });
         } else {
-          swal({
-            text: result.message,
-            icon: "error",
-            button: {
-              text: "Aceptar",
-              className: "btn btn-dark",
-            },
-          });
+          throw new Error(data.message || "Error al registrar usuario.");
         }
       } catch (error) {
-        console.error("Error al realizar la solicitud:", error);
         swal({
-          text: "Hubo un error al conectar con el servidor.",
+          text: `Error: ${error.message}`,
           icon: "error",
           button: {
             text: "Aceptar",
@@ -114,7 +110,7 @@ const Registro = () => {
 
   return (
     <div className="container mt-5 mb-4">
-      <h2 className="text-center">Vamos a hacerte un miembro de OneCorse.</h2>
+      <h2 className="text-center">Registro de Usuario</h2>
       <br />
       <Form id="registroForm" onSubmit={handleSubmit}>
         <Row className="mb-3">
@@ -130,11 +126,11 @@ const Registro = () => {
             />
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Label>Apellido Paterno</Form.Label>
+            <Form.Label>Apellido Paterno*</Form.Label>
             <Form.Control
               type="text"
-              id="apellido"
-              name="apellido"
+              id="primer_ap"
+              name="primer_ap"
               value={formData.primer_ap}
               onChange={handleChange}
               placeholder="Apellido Paterno"
@@ -172,9 +168,9 @@ const Registro = () => {
         <Form.Group className="mb-3">
           <Form.Label>Número de Empleado*</Form.Label>
           <Form.Control
-            id="numeroEmpleado"
-            type="text"
-            name="numeroEmpleado"
+            type="number"
+            id="numero_empleado"
+            name="numero_empleado"
             value={formData.numero_empleado}
             onChange={handleChange}
             placeholder="Número de Empleado"
@@ -187,11 +183,11 @@ const Registro = () => {
             id="terminos"
             checked={formData.terminos}
             onChange={handleChange}
-            label="Acepto recibir correos y alertas de OneCorse."
+            label="Acepto los términos y condiciones."
           />
         </Form.Group>
         <Button variant="dark" type="submit" className="w-100">
-          Crear una cuenta
+          Registrar
         </Button>
       </Form>
     </div>

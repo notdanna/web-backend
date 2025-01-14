@@ -8,10 +8,10 @@ header('Access-Control-Allow-Headers: Content-Type');
 include_once '../../../api/tools/connect.php';
 
 // Verificar si el usuario tiene sesión y rol autorizado
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [3, 2, 1])) { // Jefe de academia (3) o Capital Humano (2) o Administrador (1)
-    echo json_encode(['status' => 'error', 'message' => 'Acceso no autorizado']);
-    exit;
-}
+// if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [4, 3, 2, 1])) { // Jefe de academia (3) o Capital Humano (2) o Administrador (1)
+//     echo json_encode(['status' => 'error', 'message' => 'Acceso no autorizado']);
+//     exit;
+// }
 
 // Leer datos de la solicitud
 $data = json_decode(file_get_contents('php://input'), true);
