@@ -1,4 +1,11 @@
 <?php
+
+// Cabezeras para evitar problemas de CORS
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: *");
+
+
 header('Content-Type: application/json');
 include_once $_SERVER['DOCUMENT_ROOT'] . '/web-backend/api/tools/connect.php';
 
