@@ -18,6 +18,7 @@ import InicioCapital from "./pages/capitalHumano/inicioCapital";
 import TiempoPago from "./pages/docente/TiempoPago";
 import SeguimientoTipoPago from "./pages/docente/SeguimientoTiempoPago";
 import ProtectedRoute from "./components/RutasProtegidas";
+import TiempoPagoHorarios from "./pages/docente/TiempoPagoHorarios";
 import "./App.css";
 
 const App = () => {
@@ -25,10 +26,8 @@ const App = () => {
     <SessionProvider>
       <Router>
         <div>
-          {/* Barra de navegación */}
           <Navbar />
 
-          {/* Configuración de rutas */}
           <Routes>
             {/* Rutas públicas */}
             <Route path="/" element={<Inicio />} />
@@ -43,14 +42,6 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <InicioDocente />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/seguimientoTipoPago"
-              element={
-                <ProtectedRoute>
-                  <SeguimientoTipoPago />
                 </ProtectedRoute>
               }
             />
@@ -83,6 +74,24 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <TiempoPago />
+                </ProtectedRoute>
+              }
+            />
+            {/* Nueva ruta para el segundo formulario */}
+            <Route
+              path="/tiempoPagoHorarios"
+              element={
+                <ProtectedRoute>
+                  <TiempoPagoHorarios />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/seguimientoTipoPago"
+              element={
+                <ProtectedRoute>
+                  <SeguimientoTipoPago />
                 </ProtectedRoute>
               }
             />
