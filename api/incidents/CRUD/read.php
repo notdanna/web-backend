@@ -1,9 +1,15 @@
 <?php
 
 // Cabezeras para evitar problemas de CORS
-header("Access-Control-Allow-Origin: *");
+
 header("Access-Control-Allow-Headers: *");
-header("Access-Control-Allow-Methods: *");
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: http://localhost:3000'); // Cambia por el origen del frontend
+header('Access-Control-Allow-Methods: GET');
+header('Access-Control-Allow-Credentials: true');
+
+
+
 
 
 header('Content-Type: application/json');
