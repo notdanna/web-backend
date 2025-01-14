@@ -56,9 +56,8 @@ const Login = ({ isDarkMode }) => {
         Swal.fire({
           icon: "success",
           title: "Inicio de sesión exitoso",
-          text: `Bienvenido ${data.user.nombre}`,
-          text: `CURP: ${data.user.id}`,
-          
+          text: `Bienvenido: ${data.user.nombre}`,
+
           confirmButtonColor: "#000",
         }).then(() => {
           // Actualizar el contexto de sesión

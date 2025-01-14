@@ -18,6 +18,7 @@ import InicioCapital from "./pages/capitalHumano/inicioCapital";
 import TiempoPago from "./pages/docente/TiempoPago";
 import SeguimientoTipoPago from "./pages/docente/SeguimientoTiempoPago";
 import ProtectedRoute from "./components/RutasProtegidas";
+import CorrimientoHorario2 from "./pages/docente/CorrimientoHorario2";
 import TiempoPagoHorarios from "./pages/docente/TiempoPagoHorarios";
 import "./App.css";
 
@@ -116,6 +117,14 @@ const App = () => {
               element={
                 <ProtectedRoute>
                   <InicioCapital />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/corrimiento-horario-next"
+              element={
+                <ProtectedRoute>
+                  <CorrimientoHorario2 />
                 </ProtectedRoute>
               }
             />
