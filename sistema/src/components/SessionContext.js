@@ -8,7 +8,7 @@ export const SessionContext = createContext();
 export const SessionProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
-  const [userCurp, setUserCurp] = useState("");  // <--- Nuevo estado
+  const [userCurp, setUserCurp] = useState(""); // <--- Nuevo estado
   const [userId, setUserId] = useState("");
 
   // Verificar la sesión al cargar la aplicación
@@ -26,11 +26,10 @@ export const SessionProvider = ({ children }) => {
           setIsLoggedIn(true);
           setUserName(data.user.nombre);
           setUserCurp(data.user.id);
-
         } else {
           setIsLoggedIn(false);
           setUserName("");
-          setUserCurp("");  // Limpiamos
+          setUserCurp(""); // Limpiamos
         }
       } catch (error) {
         console.error("Error al verificar la sesión:", error);
@@ -54,7 +53,7 @@ export const SessionProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axios.post(
-        "http://localhost/web-backend/api/session/logout.php", 
+        "http://localhost/web-backend/api/session/logout.php",
         {},
         { withCredentials: true }
       );
@@ -72,9 +71,9 @@ export const SessionProvider = ({ children }) => {
       value={{
         isLoggedIn,
         userName,
-        userCurp,      // <--- Lo exponemos en el value
+        userCurp, // <--- Lo exponemos en el value
         login,
-        logout
+        logout,
       }}
     >
       {children}

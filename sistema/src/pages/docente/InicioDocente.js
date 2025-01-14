@@ -222,7 +222,9 @@ const InicioDocente = () => {
       {/* Mostrar estadísticas y tabla sólo si hay peticiones */}
       {peticiones.length > 0 && (
         <>
-          <h5 className="text-center mb-4">Total de Peticiones: {totalPeticiones}</h5>
+          <h5 className="text-center mb-4">
+            Total de Peticiones: {totalPeticiones}
+          </h5>
 
           <div className="mb-5">
             <h2 className="text-center mb-5">Estadísticas de Peticiones</h2>
@@ -262,7 +264,11 @@ const InicioDocente = () => {
                     <td>{pet.fecha_creacion}</td>
                     <td>
                       {pet.link_pdf ? (
-                        <a href={pet.link_pdf} target="_blank" rel="noopener noreferrer">
+                        <a
+                          href={pet.link_pdf}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
                           Ver PDF
                         </a>
                       ) : (

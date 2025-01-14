@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const CorrimientoHorario = () => {
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     curp_peticion: "",
     rol_origen: "Docente",
@@ -19,12 +21,13 @@ const CorrimientoHorario = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Manejar cambios en el objeto `horario`
-    if (name in formData.horario) {
+    if (Object.keys(formData.horario).includes(name)) {
       setFormData((prev) => ({
         ...prev,
-        horario: { ...prev.horario, [name]: value },
+        horario: {
+          ...prev.horario,
+          [name]: value,
+        },
       }));
     } else {
       setFormData((prev) => ({
@@ -34,11 +37,99 @@ const CorrimientoHorario = () => {
     }
   };
 
+  const validarFormulario = () => {
+    const { dia, hora_inicio, hora_fin } = formData.horario;
+    const { curp_peticion, descripcion_incidencia } = formData;
+
+    if (
+      !curp_peticion.trim() ||
+      !dia ||
+      !hora_inicio ||
+      !hora_fin ||
+      !descripcion_incidencia.trim()
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Todos los campos son obligatorios.",
+      });
+      return false;
+    }
+
+    if (
+      new Date(`1970-01-01T${hora_inicio}`) >=
+      new Date(`1970-01-01T${hora_fin}`)
+    ) {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "La hora de inicio debe ser menor que la hora de fin.",
+      });
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Formulario enviado:", formData);
-    alert("Corrimiento de Horario enviado correctamente");
-    navigate(-1); // Regresa a la página anterior
+
+    if (!validarFormulario()) {
+      return;
+    }
+
+    const payload = {
+      curp_peticion: formData.curp_peticion.trim(),
+      rol_origen: 4,
+      rol_destino: 3,
+      id_tramite: 3, // Identificador para Corrimiento de Horario
+      horario: {
+        dia: formData.horario.dia,
+        hora_inicio: formData.horario.hora_inicio,
+        hora_fin: formData.horario.hora_fin,
+      },
+      descripcion_incidencia: formData.descripcion_incidencia.trim(),
+    };
+
+    fetch("http://localhost/web-backend/api/incidents/scheduleShift/data.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          // Guardar en localStorage
+          localStorage.setItem("id_peticion", data.id_peticion);
+
+          Swal.fire({
+            icon: "success",
+            title: "Éxito",
+            text: "La petición se creó correctamente.",
+          }).then(() => {
+            // Redirigir al segundo formulario
+            navigate("/corrimiento-horario-next", {
+              state: { id_peticion: data.id_peticion },
+            });
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: data.message || "Hubo un problema al crear la petición.",
+          });
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Error al conectar con la API.",
+        });
+        console.error("Error al conectar con la API:", error);
+      });
   };
 
   return (
@@ -49,7 +140,6 @@ const CorrimientoHorario = () => {
         className="p-4 shadow-lg"
         style={{ backgroundColor: "#f8f9fa", borderRadius: "10px" }}
       >
-        {/* CURP */}
         <Form.Group className="mb-3">
           <Form.Label>CURP del Solicitante</Form.Label>
           <Form.Control
@@ -61,8 +151,6 @@ const CorrimientoHorario = () => {
             required
           />
         </Form.Group>
-
-        {/* Rol Origen */}
         <Form.Group className="mb-3">
           <Form.Label>Rol Origen</Form.Label>
           <Form.Control
@@ -73,8 +161,6 @@ const CorrimientoHorario = () => {
             disabled
           />
         </Form.Group>
-
-        {/* Rol Destino */}
         <Form.Group className="mb-3">
           <Form.Label>Rol Destino</Form.Label>
           <Form.Control
@@ -85,8 +171,6 @@ const CorrimientoHorario = () => {
             disabled
           />
         </Form.Group>
-
-        {/* ID Trámite */}
         <Form.Group className="mb-3">
           <Form.Label>ID del Trámite</Form.Label>
           <Form.Control
@@ -97,8 +181,6 @@ const CorrimientoHorario = () => {
             disabled
           />
         </Form.Group>
-
-        {/* Horario */}
         <Form.Group className="mb-3">
           <Form.Label>Día</Form.Label>
           <Form.Control
@@ -129,8 +211,6 @@ const CorrimientoHorario = () => {
             required
           />
         </Form.Group>
-
-        {/* Descripción de Incidencia */}
         <Form.Group className="mb-3">
           <Form.Label>Descripción de la Incidencia</Form.Label>
           <Form.Control
@@ -139,20 +219,16 @@ const CorrimientoHorario = () => {
             name="descripcion_incidencia"
             value={formData.descripcion_incidencia}
             onChange={handleChange}
-            placeholder="Ejemplo: El docente faltó por motivos de salud"
+            placeholder="Ejemplo: El docente faltó por motivos de salud..."
             required
           />
         </Form.Group>
-
         <div className="d-flex justify-content-between">
-          {/* Botón para regresar */}
           <Button variant="secondary" onClick={() => navigate(-1)}>
             Regresar
           </Button>
-
-          {/* Botón para enviar */}
           <Button type="submit" variant="dark">
-            Enviar
+            Siguiente
           </Button>
         </div>
       </Form>

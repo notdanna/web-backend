@@ -34,8 +34,10 @@ const Registro = () => {
     if (!formData.primer_ap || formData.primer_ap.length < 2) {
       errors.push("El apellido paterno debe tener al menos 2 caracteres.");
     }
+
     if (!formData.numero_empleado || isNaN(formData.numero_empleado)) {
       errors.push("Debe ingresar un número de empleado válido.");
+
     }
 
     if (!formData.contrasena || formData.contrasena.length < 8) {

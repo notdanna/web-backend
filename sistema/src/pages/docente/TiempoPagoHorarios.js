@@ -12,7 +12,7 @@ const TiempoPagoHorarios = () => {
   // Por seguridad, podrías hacer una verificación:
   if (!id_peticion) {
     // Si no hay id_peticion, redirigir a algún lugar
-    navigate("/"); 
+    navigate("/inicio-docente");
   }
 
   // Estado local que contendrá un arreglo de objetos (horarios)
@@ -36,7 +36,10 @@ const TiempoPagoHorarios = () => {
 
   // Agregar un nuevo campo de horario
   const handleAgregarHorario = () => {
-    setHorarios((prev) => [...prev, { dia: "", hora_inicio: "", hora_fin: "" }]);
+    setHorarios((prev) => [
+      ...prev,
+      { dia: "", hora_inicio: "", hora_fin: "" },
+    ]);
   };
 
   // Eliminar un horario
@@ -71,9 +74,13 @@ const TiempoPagoHorarios = () => {
           Swal.fire("Exito", data.message, "success");
 
           // Opcional: redirigir a otra página o limpiar el formulario
-          navigate("/");
+          navigate("/inicio-docente");
         } else {
-          Swal.fire("Error", data.message || "No se pudo registrar horarios", "error");
+          Swal.fire(
+            "Error",
+            data.message || "No se pudo registrar horarios",
+            "error"
+          );
         }
       })
       .catch((error) => {
@@ -84,7 +91,9 @@ const TiempoPagoHorarios = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Registrar Horarios del Tiempo de Pago</h1>
+      <h1 className="text-center mb-4">
+        Registrar Horarios del Tiempo de Pago
+      </h1>
       <p>
         <strong>ID Petición:</strong> {id_peticion}
       </p>
