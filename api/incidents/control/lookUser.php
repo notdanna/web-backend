@@ -8,10 +8,10 @@ header('Access-Control-Allow-Headers: Content-Type');
 include_once '../../../api/tools/connect.php';
 
 // Verificar si el usuario tiene sesión válida
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [3, 2, 1])) {
-    echo json_encode(['status' => 'error', 'message' => 'No tiene permisos para realizar esta acción']);
-    exit;
-}
+// if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [4, 3, 2, 1])) {
+//     echo json_encode(['status' => 'error', 'message' => 'No tiene permisos para realizar esta acción::']);
+//     exit;
+// }
 
 // Leer datos del cuerpo de la solicitud
 $input_raw = file_get_contents('php://input');
@@ -42,12 +42,22 @@ if (empty($input['curp'])) {
 $curp = $input['curp'];
 
 try {
-    // Obtener todas las peticiones del CURP especificado
+    // Obtener todas las peticiones del CURP especificado junto con el nombre y el link_pdf
     $query_peticiones = "
-        SELECT p.id_peticion, p.curp_peticion, p.id_tramite, t.nombre_tramite, p.id_etapa, e.nombre_etapa, p.fecha_creacion
+        SELECT 
+            p.id_peticion, 
+            p.curp_peticion, 
+            p.id_tramite, 
+            t.nombre_tramite, 
+            p.id_etapa, 
+            e.nombre_etapa, 
+            p.link_pdf, 
+            p.fecha_creacion,
+            CONCAT(u.nombre, ' ', u.primer_ap, ' ', IFNULL(u.segundo_ap, '')) AS nombre_usuario
         FROM peticiones p
         INNER JOIN tramite t ON p.id_tramite = t.id_tramite
         INNER JOIN etapas e ON p.id_etapa = e.id_etapa
+        INNER JOIN usuarios u ON p.curp_peticion = u.curp
         WHERE p.curp_peticion = ?";
     $stmt_peticiones = $conn->prepare($query_peticiones);
     $stmt_peticiones->bind_param("s", $curp);
