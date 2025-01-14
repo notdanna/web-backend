@@ -41,15 +41,6 @@ $result = $stmt->get_result();
 if ($result && $result->num_rows === 1) {
     $userData = $result->fetch_assoc();
 
-    // Verificar si el nombre y el primer apellido coinciden
-    if (
-        strcasecmp($userData['nombre'], $nombre) !== 0 || 
-        strcasecmp($userData['primer_ap'], $primer_ap) !== 0
-    ) {
-        echo json_encode(['status' => 'error', 'message' => 'Nombre o apellido incorrecto']);
-        exit;
-    }
-
     // Verificar si el usuario ya tiene una contraseña
     if (!empty($userData['contrasena'])) {
         // Validar la contraseña ingresada

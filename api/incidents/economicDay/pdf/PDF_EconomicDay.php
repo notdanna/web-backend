@@ -66,7 +66,7 @@ $data = $result->fetch_assoc();
 
 // Verificar si la etapa está aprobada
 $etapa = $data['etapa'];
-$nombre_simple_docente = ($etapa == 3 || $etapa == 5) ? $data['nombre_simple_docente'] : ''; // Asignar si aprobado
+$nombre_simple_docente = $data['nombre_simple_docente']; // Asignar si aprobado
 $nombre_simple_jefe = ($etapa == 3 || $etapa == 5) ? $data['nombre_simple_jefe'] : ''; // Asignar si aprobado
 
 // Crear el PDF
@@ -107,7 +107,7 @@ $pdf->Ln(10);
 
 // Detalles del encabezado
 $pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(0, 10, mb_convert_encoding("[NOMBRE JEFE DCH]", 'ISO-8859-1', 'UTF-8'), 0, 1);
+$pdf->Cell(0, 10, mb_convert_encoding("Sofia Lopez Martinez", 'ISO-8859-1', 'UTF-8'), 0, 1);
 $pdf->Cell(0, 10, mb_convert_encoding("JEFE DEL DEPARTAMENTO DE CAPITAL HUMANO", 'ISO-8859-1', 'UTF-8'), 0, 1);
 $pdf->Ln(5);
 $pdf->Cell(0, 10, mb_convert_encoding("PRESENTE", 'ISO-8859-1', 'UTF-8'), 0, 1);

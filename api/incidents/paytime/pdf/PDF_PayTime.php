@@ -153,7 +153,7 @@ $pdf->SetFont('Arial', '', 12);
 $fecha_actual = date('d-m-Y');
 $anio_actual = date('Y');
 
-$memo_identificador = "MEMO/{$data['id_academia']}/[CONSECUTIVO]/$anio_actual";
+$memo_identificador = "MEMO/{$data['id_academia']}/$anio_actual";
 
 // Encabezado del Memorándum
 $pdf->SetFont('Arial', 'B', 12);
@@ -164,7 +164,7 @@ $pdf->SetFont('Arial', '', 12);
 
 // Datos del memorándum
 $id_memorandum = 'MEMO/' . $data['id_academia'] . '/' . $id_peticion . '/' . date('Y');
-$pdf->MultiCell(0, 6, utf8_decode("Fecha: $fecha_creacion\nMemorándum: $id_memorandum\n\nDE: {$data['nombre_completo_jefe_academico']}\nJEFE DE {$data['nombre_academia']}\n\nPARA: Jefe del Departamento de Capital Humano\nASUNTO: Justificación de Incidencia"), 0, 'L');
+$pdf->MultiCell(0, 6, utf8_decode("Fecha: $fecha_creacion\nMemorándum: $id_memorandum\n\nDE: {$data['nombre_completo_jefe_academico']}\nJEFE DE {$data['nombre_academia']}\n\nPARA: Sofia Lopez Martinez\nASUNTO: Justificación de Incidencia"), 0, 'L');
 $pdf->Ln(5);
 
 // Agregar fecha y descripción de la incidencia
