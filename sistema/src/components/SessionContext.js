@@ -26,19 +26,16 @@ export const SessionProvider = ({ children }) => {
           setIsLoggedIn(true);
           setUserName(data.user.nombre);
           setUserCurp(data.user.id);
-          setUserId(data.user.id); // <--- Usar "id" que viene del backend
         } else {
           setIsLoggedIn(false);
           setUserName("");
           setUserCurp(""); // Limpiamos
-          setUserId("");
         }
       } catch (error) {
         console.error("Error al verificar la sesión:", error);
         setIsLoggedIn(false);
         setUserName("");
         setUserCurp("");
-        setUserId("");
       }
     };
 
@@ -51,7 +48,6 @@ export const SessionProvider = ({ children }) => {
     setIsLoggedIn(true);
     setUserName(nombre);
     setUserCurp(curp);
-    setUserId(userId);
   };
 
   const logout = async () => {
@@ -76,7 +72,6 @@ export const SessionProvider = ({ children }) => {
         isLoggedIn,
         userName,
         userCurp, // <--- Lo exponemos en el value
-        userId,
         login,
         logout,
       }}
