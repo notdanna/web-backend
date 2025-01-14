@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const TiempoPago = () => {
   const navigate = useNavigate();
+
+  // Estado del formulario (campos básicos)
   const [formData, setFormData] = useState({
-    rol_origen: "Docente",
-    rol_destino: "Jefe Academia",
-    tramite: "Tiempo de Pago",
+    // Fijos o iniciales
+    rol_origen: 4,    // Docente => "4"
+    rol_destino: 3,   // Jefe Academia => "3"
+    id_tramite: 1,    // ID de trámite "1" => "Tiempo de Pago" (según tu backend)
+
+    // Editables por usuario
+    curp_peticion: "",
+    fecha_incidencia: "",
+    descripcion_incidencia: "",
+    horas_faltantes: "",
   });
 
+  // Maneja cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -18,25 +29,59 @@ const TiempoPago = () => {
     }));
   };
 
+  // Maneja envío del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes manejar el envío del formulario, por ejemplo, enviando los datos a una API
-    console.log("Datos del formulario:", formData);
-    // Redirigir a la página anterior después de enviar el formulario
-    navigate(-1);
+
+    // Construir el payload exactamente como tu backend lo necesita
+    const payload = {
+      curp_peticion: formData.curp_peticion.trim(),
+      rol_origen: formData.rol_origen,
+      rol_destino: formData.rol_destino,
+      id_tramite: formData.id_tramite,
+      fecha_incidencia: formData.fecha_incidencia,
+      descripcion_incidencia: formData.descripcion_incidencia,
+      horas_faltantes: parseInt(formData.horas_faltantes, 10),
+    };
+
+    fetch("http://localhost/web-backend/api/incidents/paytime/data.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.status === "success") {
+          // data.id_peticion es el valor que necesitamos
+          Swal.fire("Exito", data.message, "success");
+
+          // Redirigir al segundo formulario y pasar id_peticion
+          navigate("/tiempoPagoHorarios", {
+            state: { id_peticion: data.id_peticion },
+          });
+        } else {
+          Swal.fire("Error", data.message || "No se pudo crear la petición", "error");
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        Swal.fire("Error", "Hubo un problema al conectar con la API", "error");
+      });
   };
 
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Solicitud Tiempo de Pago</h1>
       <Form onSubmit={handleSubmit}>
-        {/* Mostrar solo los campos de rol_origen, rol_destino e id_tramite */}
+        {/* Muestra los campos de rol_origen, rol_destino, id_tramite */}
         <Form.Group controlId="rol_origen" className="mb-3">
           <Form.Label>Rol de Origen</Form.Label>
           <Form.Control
             type="text"
             name="rol_origen"
-            value={formData.rol_origen}
+            value="Docente" // Solo representativo
             readOnly
             disabled
           />
@@ -47,7 +92,7 @@ const TiempoPago = () => {
           <Form.Control
             type="text"
             name="rol_destino"
-            value={formData.rol_destino}
+            value="Jefe Academia" // Solo representativo
             readOnly
             disabled
           />
@@ -57,20 +102,20 @@ const TiempoPago = () => {
           <Form.Label>Trámite</Form.Label>
           <Form.Control
             type="text"
-            name="tramite"
-            value={formData.tramite}
+            name="id_tramite"
+            value="Tiempo de Pago" // Solo representativo
             readOnly
             disabled
           />
         </Form.Group>
 
-        {/* Los campos editables muestran la información inicial como placeholder */}
+        {/* Campos que el usuario sí llena */}
         <Form.Group controlId="curp_peticion" className="mb-3">
           <Form.Label>CURP del Peticionario</Form.Label>
           <Form.Control
             type="text"
             name="curp_peticion"
-            placeholder={formData.curp_peticion}
+            value={formData.curp_peticion}
             onChange={handleChange}
             required
           />
@@ -81,7 +126,7 @@ const TiempoPago = () => {
           <Form.Control
             type="date"
             name="fecha_incidencia"
-            placeholder={formData.fecha_incidencia}
+            value={formData.fecha_incidencia}
             onChange={handleChange}
             required
           />
@@ -93,7 +138,7 @@ const TiempoPago = () => {
             as="textarea"
             rows={3}
             name="descripcion_incidencia"
-            placeholder={formData.descripcion_incidencia}
+            value={formData.descripcion_incidencia}
             onChange={handleChange}
             required
           />
@@ -104,7 +149,7 @@ const TiempoPago = () => {
           <Form.Control
             type="number"
             name="horas_faltantes"
-            placeholder={formData.horas_faltantes}
+            value={formData.horas_faltantes}
             onChange={handleChange}
             required
           />
@@ -115,7 +160,7 @@ const TiempoPago = () => {
             Cancelar
           </Button>
           <Button variant="dark" type="submit">
-            Enviar Solicitud
+            Siguiente
           </Button>
         </div>
       </Form>

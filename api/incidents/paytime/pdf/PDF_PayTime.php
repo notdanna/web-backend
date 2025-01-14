@@ -4,7 +4,7 @@ require('../../../../lib/fpdf.php');
 include_once '../../../../api/tools/connect.php';
 
 // Verificar si el usuario tiene sesión activa y un rol válido
-if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [1, 2, 3])) {
+if (empty($_SESSION['user_id']) || !in_array($_SESSION['rol'], [1, 2, 3, 4])) {
     echo json_encode(['status' => 'error', 'message' => 'No tiene permisos para realizar esta acción']);
     exit;
 }

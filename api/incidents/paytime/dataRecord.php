@@ -49,7 +49,12 @@ $data_peticion = $result->fetch_assoc();
 $horas_faltantes = $data_peticion['horas_faltantes'];
 
 if ($total_horas != $horas_faltantes) {
-    echo json_encode(['status' => 'error', 'message' => 'Las horas propuestas no coinciden con las horas faltantes']);
+    echo json_encode([
+        'status' => 'error', 
+        'message' => 'Las horas propuestas no coinciden con las horas faltantes',
+        'total_horas' => $total_horas,
+        'horas_faltantes' => $horas_faltantes
+    ]);
     exit;
 }
 

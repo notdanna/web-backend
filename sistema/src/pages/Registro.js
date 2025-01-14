@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
+import axios from "axios";
 import { Form, Button, Col, Row } from "react-bootstrap";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
@@ -9,18 +8,12 @@ import "../css/registro.css";
 const Registro = () => {
   const navigate = useNavigate();
 
-  const location = useLocation();
-  const params = new URLSearchParams(location.search);
-  const email = params.get("email") || "";
-
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
-    email: email,
-    contrasena: "",
-    preferencia: "",
     curp: "",
-
+    contrasena: "",
+    numeroEmpleado: "",
     terminos: false,
   });
 
@@ -41,35 +34,14 @@ const Registro = () => {
     if (!formData.apellido || formData.apellido.length < 2) {
       errors.push("El apellido debe tener al menos 2 caracteres.");
     }
-    if (!formData.email || !/\S+@\S+\.\S+/.test(formData.email)) {
-      errors.push("Debe ingresar un Curp.");
+    if (!formData.curp || formData.curp.length !== 17) {
+      errors.push("El CURP debe tener 18 caracteres.");
     }
     if (!formData.contrasena || formData.contrasena.length < 8) {
       errors.push("La contraseña debe tener al menos 8 caracteres.");
     }
-    if (!formData.preferencia) {
-      errors.push("Debe seleccionar una preferencia.");
-    }
-    if (!formData.nacimiento || new Date(formData.nacimiento) > new Date()) {
-      errors.push("Debe ingresar una fecha de nacimiento válida.");
-    }
-    if (!formData.codigoPostal) {
-      errors.push("El código postal es obligatorio.");
-    }
-    if (!formData.estado) {
-      errors.push("El estado es obligatorio.");
-    }
-    if (!formData.municipio) {
-      errors.push("El municipio es obligatorio.");
-    }
-    if (!formData.colonia) {
-      errors.push("La colonia es obligatoria.");
-    }
-    if (!formData.calle) {
-      errors.push("La calle es obligatoria.");
-    }
-    if (!formData.numero) {
-      errors.push("El número es obligatorio.");
+    if (!formData.numeroEmpleado) {
+      errors.push("El número de empleado es obligatorio.");
     }
     if (!formData.terminos) {
       errors.push("Debe aceptar los términos y condiciones.");
@@ -90,20 +62,53 @@ const Registro = () => {
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
-      swal({
-        text: "Formulario enviado correctamente (simulación).",
-        icon: "success",
-        button: {
-          text: "Aceptar",
-          className: "btn btn-dark",
-        },
-      }).then(() => {
-        navigate("../"); // Redirige al usuario tras el éxito
-      });
+      try {
+        const response = await axios.post(
+          "http://localhost/web-backend/api/session/signin.php",
+          {
+            curp: formData.curp,
+            contrasena: formData.contrasena,
+          }
+        );
+
+        const result = response.data;
+
+        if (result.status === "success") {
+          swal({
+            text: result.message,
+            icon: "success",
+            button: {
+              text: "Aceptar",
+              className: "btn btn-dark",
+            },
+          }).then(() => {
+            navigate("../login"); // Redirige tras el éxito
+          });
+        } else {
+          swal({
+            text: result.message,
+            icon: "error",
+            button: {
+              text: "Aceptar",
+              className: "btn btn-dark",
+            },
+          });
+        }
+      } catch (error) {
+        console.error("Error al realizar la solicitud:", error);
+        swal({
+          text: "Hubo un error al conectar con el servidor.",
+          icon: "error",
+          button: {
+            text: "Aceptar",
+            className: "btn btn-dark",
+          },
+        });
+      }
     }
   };
 
@@ -130,24 +135,23 @@ const Registro = () => {
               type="text"
               id="apellido"
               name="apellido"
-              value={formData.apellido}
+              value={formData.primer_ap}
               onChange={handleChange}
               placeholder="Apellido Paterno"
             />
           </Form.Group>
         </Row>
         <Form.Group className="mb-3">
-          <Form.Label>Curp</Form.Label>
+          <Form.Label>Curp*</Form.Label>
           <Form.Control
             id="curp"
-            type="curp"
+            type="text"
             name="curp"
-            value={formData.email}
+            value={formData.curp}
             onChange={handleChange}
-            placeholder="Curp"
+            placeholder="CURP"
           />
         </Form.Group>
-
         <Form.Group className="mb-3">
           <Form.Label>Contraseña*</Form.Label>
           <Form.Control
@@ -165,13 +169,15 @@ const Registro = () => {
             </ul>
           </Form.Text>
         </Form.Group>
-        <Form.Group className="mb-3"></Form.Group>
         <Form.Group className="mb-3">
-          <Form.Label>Numero de Empleado</Form.Label>
+          <Form.Label>Número de Empleado*</Form.Label>
           <Form.Control
             id="numeroEmpleado"
+            type="text"
             name="numeroEmpleado"
+            value={formData.numero_empleado}
             onChange={handleChange}
+            placeholder="Número de Empleado"
           />
         </Form.Group>
         <Form.Group className="mb-3">
@@ -181,7 +187,7 @@ const Registro = () => {
             id="terminos"
             checked={formData.terminos}
             onChange={handleChange}
-            label="Acepto Recibir correos y Alertas de OneCorse."
+            label="Acepto recibir correos y alertas de OneCorse."
           />
         </Form.Group>
         <Button variant="dark" type="submit" className="w-100">

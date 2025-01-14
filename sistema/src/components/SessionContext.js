@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import axios from "axios";
 
 // Crear el contexto
 export const SessionContext = createContext();
@@ -12,10 +13,12 @@ export const SessionProvider = ({ children }) => {
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const response = await fetch(
-          "http://localhost/web-backend/api/session/logged.php"
+        const response = await axios.get(
+          "http://localhost/web-backend/api/session/logged.php",
+          { withCredentials: true } // Asegura que las cookies de sesión se envíen
         );
-        const data = await response.json();
+
+        const data = response.data;
 
         if (data.status === "success") {
           setIsLoggedIn(true);
@@ -41,10 +44,11 @@ export const SessionProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost/web-backend/api/session/logged.php", {
-        method: "POST",
-        credentials: "include",
-      });
+      await axios.post(
+        "http://localhost/web-backend/api/session/logout.php", // Asegúrate de que esta URL sea correcta
+        {},
+        { withCredentials: true }
+      );
     } catch (error) {
       console.error("Error al cerrar sesión:", error);
     }
