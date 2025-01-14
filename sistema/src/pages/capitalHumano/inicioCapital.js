@@ -219,7 +219,7 @@ const InicioCapital = () => {
 
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">Bienvenido, Capital Humano</h1>
+      <h1 className="text-center mb-4">Bienvenido, Sofia</h1>
 
       {/* Gráficas */}
       <div className="mb-5">

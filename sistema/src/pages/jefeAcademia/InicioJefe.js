@@ -181,7 +181,7 @@ const InicioJefe = () => {
       <div className="mb-4 d-flex justify-content-center">
         <Form className="w-50" onSubmit={handleSearch}>
           <Form.Group controlId="formCurp" className="mb-3">
-            <Form.Label>Ingresa la CURP del usuario</Form.Label>
+            <Form.Label>Vuelve a ingresar tu curp por seguridad.</Form.Label>
             <Form.Control
               type="text"
               placeholder="Ej: CJR625816GYWIKYXT"

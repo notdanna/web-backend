@@ -68,6 +68,7 @@ $data = $result->fetch_assoc();
 $etapa = $data['etapa'];
 $nombre_simple_docente = $data['nombre_simple_docente']; // Asignar si aprobado
 $nombre_simple_jefe = ($etapa == 3 || $etapa == 5) ? $data['nombre_simple_jefe'] : ''; // Asignar si aprobado
+$nombre_capital = ($etapa == 5 || $etapa == 3 ) ? 'Sofia' : 'Jefe de Academia'; // Asignar si aprobado
 
 // Crear el PDF
 class PDF extends FPDF {
@@ -137,9 +138,10 @@ $pdf->AddFont('Winter', '', 'WinterSong-owRGB.php');
 $pdf->SetFont('Winter', '', 30);
 
 // Firmas condicionales según etapa
-if (!empty($nombre_simple_docente) && !empty($nombre_simple_jefe)) {
-    $pdf->Cell(80, 10, mb_convert_encoding("$nombre_simple_docente", 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+$pdf->Cell(80, 10, mb_convert_encoding("$nombre_simple_docente", 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+if (!empty($nombre_simple_jefe)) {
     $pdf->Cell(80, 10, mb_convert_encoding("$nombre_simple_jefe", 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
+    $pdf->Cell(80, 10, mb_convert_encoding("$nombre_capital", 'ISO-8859-1', 'UTF-8'), 0, 0, 'C');
     $pdf->Ln(10);
 }
 
