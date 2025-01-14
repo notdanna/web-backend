@@ -57,11 +57,13 @@ const Login = ({ isDarkMode }) => {
           icon: "success",
           title: "Inicio de sesión exitoso",
           text: `Bienvenido ${data.user.nombre}`,
-          text: `CURP: ${curp}`,
+          text: `CURP: ${data.user.id}`,
+          
           confirmButtonColor: "#000",
         }).then(() => {
           // Actualizar el contexto de sesión
           login(data.user.nombre, data.user.id);
+          console.log(data.user.id);
 
           // Redirigir al usuario según el rol
           if (data.user.rol === "1") {
