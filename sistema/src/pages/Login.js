@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/login.css";
 import Swal from "sweetalert2";
-import { SessionContext } from "../components/SessionContext"; // Importar el contexto de sesión
-
+import { SessionContext } from "../components/SessionContext";
 const Login = ({ isDarkMode }) => {
   const navigate = useNavigate();
   const formRef = useRef(null);
@@ -15,7 +14,6 @@ const Login = ({ isDarkMode }) => {
     const curp = formData.get("curp");
     const password = formData.get("password");
     const termsAccepted = formData.get("terms");
-
     if (!curp || !password) {
       Swal.fire({
         icon: "error",
@@ -25,7 +23,6 @@ const Login = ({ isDarkMode }) => {
       });
       return;
     }
-
     if (!termsAccepted) {
       Swal.fire({
         icon: "error",
@@ -35,7 +32,6 @@ const Login = ({ isDarkMode }) => {
       });
       return;
     }
-
     try {
       console.log("Datos enviados al backend:", { curp, contrasena: password });
 
@@ -49,9 +45,7 @@ const Login = ({ isDarkMode }) => {
           credentials: "include", // Incluir cookies si el backend las usa
         }
       );
-
       const data = await response.json();
-
       if (data.status === "success") {
         Swal.fire({
           icon: "success",
@@ -59,16 +53,13 @@ const Login = ({ isDarkMode }) => {
           text: `Bienvenido ${data.user.nombre}`,
           confirmButtonColor: "#000",
         }).then(() => {
-          // Actualizar el contexto de sesión
           login(data.user.nombre);
-
-          // Redirigir al usuario según el rol
           if (data.user.rol === "1") {
-            navigate("/inicioAdmistrador"); // Página para administradores
+            navigate("/inicioAdmistrador");
           } else if (data.user.rol === "2") {
-            navigate("/inicioJefe"); // Página para jefes de academia
+            navigate("/inicioJefe");
           } else if (data.user.rol === "3") {
-            navigate("/inicioCapital"); // Página para capital humano
+            navigate("/inicioCapital");
           } else if (data.user.rol === "4") {
             navigate("/inicio-docente"); // Página para docentes
           } else {

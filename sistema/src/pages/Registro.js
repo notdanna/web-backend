@@ -34,7 +34,7 @@ const Registro = () => {
     if (!formData.apellido || formData.apellido.length < 2) {
       errors.push("El apellido debe tener al menos 2 caracteres.");
     }
-    if (!formData.curp || formData.curp.length !== 17) {
+    if (!formData.curp || formData.curp.length !== 14) {
       errors.push("El CURP debe tener 18 caracteres.");
     }
     if (!formData.contrasena || formData.contrasena.length < 8) {
